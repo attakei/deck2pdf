@@ -51,6 +51,7 @@ def main():
 
         # Open Web Browser & Resize 720P
         driver.get(url_)
+        time.sleep(1)
 
         # Get Screen Shot
         driver.save_screenshot(FILENAME)
