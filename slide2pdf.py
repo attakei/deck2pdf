@@ -4,6 +4,7 @@ import os
 import subprocess
 import urllib2
 import time
+from selenium import webdriver
 
 
 def main():
@@ -38,9 +39,22 @@ def main():
         timeout -= 1
 
     # Capture
+    phantomjs_path = os.path.join(os.getcwd(), 'node_modules/phantomjs/bin/phantomjs')
+    print(phantomjs_path)
+    driver = webdriver.PhantomJS(phantomjs_path)
+    driver.set_window_size(1280, 720) 
     for slide_idx in (1, 2):
-        resp = urllib2.urlopen('http://localhost:8000/index.html#' + str(slide_idx))
-        print(resp.read())
+        url_ = 'http://localhost:8000/index.html#' + str(slide_idx)
+        FILENAME = os.path.join(os.getcwd(), "screen_{}.png".format(slide_idx))
+        print(url_)
+        print(FILENAME)
+
+        # Open Web Browser & Resize 720P
+        driver.get(url_)
+
+        # Get Screen Shot
+        driver.save_screenshot(FILENAME)
+    driver.close()
 
     # server.shutdown()
     httpd.terminate()
