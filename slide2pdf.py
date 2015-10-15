@@ -42,7 +42,7 @@ def main():
     phantomjs_path = os.path.join(os.getcwd(), 'node_modules/phantomjs/bin/phantomjs')
     print(phantomjs_path)
     driver = webdriver.PhantomJS(phantomjs_path)
-    driver.set_window_size(1280, 720) 
+    driver.set_window_size(1280, 720)
     for slide_idx in (1, 2):
         url_ = 'http://localhost:8000/index.html#' + str(slide_idx)
         FILENAME = os.path.join(os.getcwd(), "screen_{}.png".format(slide_idx))
@@ -51,6 +51,8 @@ def main():
 
         # Open Web Browser & Resize 720P
         driver.get(url_)
+        time.sleep(1)
+        driver.refresh()
         time.sleep(1)
 
         # Get Screen Shot

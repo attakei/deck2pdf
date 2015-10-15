@@ -3,13 +3,14 @@
    hieroglyph-quickstart on Thu Oct 15 23:55:25 2015.
 
 
-Sample for slide2pdf
-====================
+Convert html5-slides into PDF slide
+===================================
 
-Contents:
+Who am I ?
+----------
 
-.. toctree::
-   :maxdepth: 2
 
+* Kazuya Takei
+* NIJIBOX Co., Ltd
 
 
