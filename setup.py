@@ -1,6 +1,8 @@
 from setuptools import setup, find_packages
 
 package_requires = [
+    'selenium',
+    'reportlab',
 ]
 
 setup(
