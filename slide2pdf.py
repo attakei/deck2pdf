@@ -80,7 +80,11 @@ def main():
 
         # Get Screen Shot
         driver.save_screenshot(FILENAME)
-    driver.close()
+
+    # https://github.com/SeleniumHQ/selenium/issues/767
+    import signal
+    driver.service.process.send_signal(signal.SIGTERM)
+    driver.quit()
 
     # server.shutdown()
     httpd.terminate()
