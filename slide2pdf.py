@@ -65,7 +65,8 @@ def main():
     
     resp_ = urllib2.urlopen('http://localhost:8000/index.html')
     slides = count_slide_from_dom(resp_.read())
-    
+    print('{} slides'.format(slides))
+
     slide_captures = []
     for slide_idx in range(1, slides):
         url_ = 'http://localhost:8000/index.html#' + str(slide_idx)
@@ -103,9 +104,11 @@ def main():
 
     slide_size = landscape(A4)
     pdf = canvas.Canvas(pdf_path, pagesize=slide_size)
+    idx = 0
     for slide in slide_captures:
         pdf.drawImage(slide, 0, 0, slide_size[0], slide_size[1])
         pdf.showPage()
+        idx += 1
     pdf.save()
 
 
