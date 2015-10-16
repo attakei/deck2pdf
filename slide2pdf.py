@@ -66,6 +66,7 @@ def main():
     resp_ = urllib2.urlopen('http://localhost:8000/index.html')
     slides = count_slide_from_dom(resp_.read())
     
+    slide_captures = []
     for slide_idx in range(1, slides):
         url_ = 'http://localhost:8000/index.html#' + str(slide_idx)
         FILENAME = os.path.join(os.getcwd(), "screen_{}.png".format(slide_idx))
@@ -81,6 +82,8 @@ def main():
         # Get Screen Shot
         driver.save_screenshot(FILENAME)
 
+        slide_captures.append(FILENAME)
+
     # https://github.com/SeleniumHQ/selenium/issues/767
     import signal
     driver.service.process.send_signal(signal.SIGTERM)
@@ -92,8 +95,18 @@ def main():
         time.sleep(1)
 
     # Merge
+    pdf_path = os.path.join(os.getcwd(), 'slide.pdf')
 
-    # end
+    from reportlab.lib.pagesizes import A4, landscape
+    from reportlab.platypus import SimpleDocTemplate, Image
+    from reportlab.pdfgen import canvas
+
+    slide_size = landscape(A4)
+    pdf = canvas.Canvas(pdf_path, pagesize=slide_size)
+    for slide in slide_captures:
+        pdf.drawImage(slide, 0, 0, slide_size[0], slide_size[1])
+        pdf.showPage()
+    pdf.save()
 
 
 if __name__ == '__main__':
