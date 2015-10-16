@@ -20,6 +20,12 @@ def find_phantomjs_path():
     return None
 
 
+def count_slide_from_dom(body):
+    # FIXME: Too bad know-how
+    import re
+    return len(re.split('<\/slide>', body)) - 1
+
+
 def main():
     run_dir = os.getcwd()
     root_dir = os.path.join(run_dir, '_build', 'slides')
@@ -56,7 +62,11 @@ def main():
     print(phantomjs_path)
     driver = webdriver.PhantomJS(phantomjs_path)
     driver.set_window_size(1280, 720)
-    for slide_idx in (1, 2):
+    
+    resp_ = urllib2.urlopen('http://localhost:8000/index.html')
+    slides = count_slide_from_dom(resp_.read())
+    
+    for slide_idx in range(1, slides):
         url_ = 'http://localhost:8000/index.html#' + str(slide_idx)
         FILENAME = os.path.join(os.getcwd(), "screen_{}.png".format(slide_idx))
         print(url_)
