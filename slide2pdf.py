@@ -7,6 +7,19 @@ import time
 from selenium import webdriver
 
 
+def find_phantomjs_path():
+    candidate_path = (
+        # local node-modules path
+        os.path.join(os.getcwd(), 'node_modules/phantomjs/bin/phantomjs'),
+        # nodebrew current version path
+        os.path.join(os.environ['HOME'], '.nodebrew/current/bin/phantomjs'),
+    )
+    for path in candidate_path:
+        if os.path.exists(path):
+            return path
+    return None
+
+
 def main():
     run_dir = os.getcwd()
     root_dir = os.path.join(run_dir, '_build', 'slides')
@@ -39,7 +52,7 @@ def main():
         timeout -= 1
 
     # Capture
-    phantomjs_path = os.path.join(os.getcwd(), 'node_modules/phantomjs/bin/phantomjs')
+    phantomjs_path = find_phantomjs_path()
     print(phantomjs_path)
     driver = webdriver.PhantomJS(phantomjs_path)
     driver.set_window_size(1280, 720)
