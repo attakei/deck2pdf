@@ -1,7 +1,9 @@
 import os
+import sys
 import codecs
 import re
 from setuptools import setup, find_packages
+from setuptools.command.test import test as TestCommand
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -9,6 +11,9 @@ here = os.path.abspath(os.path.dirname(__file__))
 package_requires = [
     'selenium',
     'reportlab',
+]
+test_requires = [
+    'pytest',
 ]
 
 # Use README.rst for long description.
@@ -33,6 +38,25 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
+class PyTest(TestCommand):
+    user_options = [('pytest-args=', 'a', "Arguments to pass to py.test")]
+
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = []
+
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+
+    def run_tests(self):
+        #import here, cause outside the eggs aren't loaded
+        import pytest
+        errno = pytest.main(self.pytest_args)
+        sys.exit(errno)
+
+
 setup(
     name='slide2pdf',
     version=find_version('slide2pdf.py'),
@@ -51,7 +75,9 @@ setup(
     keywords='html5slide pdf',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=package_requires,
-    entry_points = {
+    tests_require=test_requires,
+    cmdclass={'test': PyTest},
+    entry_points={
         "console_scripts": [
             "slide2pdf=slide2pdf:main",
         ]
