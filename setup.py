@@ -1,4 +1,5 @@
 import os
+import codecs
 import re
 from setuptools import setup, find_packages
 
@@ -14,7 +15,7 @@ package_requires = [
 readme_path = os.path.join(here, 'README.rst')
 long_description = ''
 if os.path.exists(readme_path):
-    with open(readme_path, encoding='utf-8') as fp:
+    with codecs.open(readme_path, encoding='utf-8') as fp:
         long_description = fp.read()
 
 
@@ -22,7 +23,7 @@ if os.path.exists(readme_path):
 def find_version(*file_paths):
     version_file_path = os.path.join(*file_paths)
     try:
-        with open(version_file_path) as fp:
+        with codecs.open(version_file_path) as fp:
             version_file = fp.read()
         version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
         if version_match:
