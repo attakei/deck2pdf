@@ -7,6 +7,9 @@ import time
 from selenium import webdriver
 
 
+__version__ = '0.0.1'
+
+
 def find_phantomjs_path():
     candidate_path = (
         # local node-modules path

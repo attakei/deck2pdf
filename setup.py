@@ -1,4 +1,5 @@
 import os
+import re
 from setuptools import setup, find_packages
 
 
@@ -17,9 +18,22 @@ if os.path.exists(readme_path):
         long_description = fp.read()
 
 
+def find_version(*file_paths):
+    version_file_path = os.path.join(*file_paths)
+    try:
+        with open(version_file_path) as fp:
+            version_file = fp.read()
+        version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
+        if version_match:
+            return version_match.group(1)
+    except OSError:
+        raise RuntimeError("Unable to find version string.")
+    raise RuntimeError("Unable to find version string.")
+
+
 setup(
     name='slide2pdf',
-    version='0.0.1',
+    version=find_version('slide2pdf.py'),
     url='https://github.com/attakei/slide2pdf',
     description='Convert html5-slide into pdf',
     long_description=long_description,
