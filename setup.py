@@ -14,10 +14,11 @@ package_requires = [
 readme_path = os.path.join(here, 'README.rst')
 long_description = ''
 if os.path.exists(readme_path):
-    with open(readme_path) as fp:
+    with open(readme_path, encoding='utf-8') as fp:
         long_description = fp.read()
 
 
+# Origin URL: http://tell-k.github.io/pyconjp2015/#28
 def find_version(*file_paths):
     version_file_path = os.path.join(*file_paths)
     try:
