@@ -1,0 +1,6 @@
+include README.rst
+include tox.ini
+include setup.cfg
+include *.py
+recursive-include docs *
+recursive-include tests *

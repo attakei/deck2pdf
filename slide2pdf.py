@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-import sys
 import os
-import subprocess
 import urllib2
 import time
 from selenium import webdriver
+
+
+__version__ = '0.0.2'
 
 
 def find_phantomjs_path():
@@ -37,8 +38,8 @@ def main():
     server = SocketServer.TCPServer(("", PORT), SimpleHTTPServer.SimpleHTTPRequestHandler)
 
     import multiprocessing
+
     def httpd_server(root_dir):
-        p = multiprocessing.current_process()
         os.chdir(root_dir)
         server.serve_forever()
 
@@ -62,7 +63,7 @@ def main():
     print(phantomjs_path)
     driver = webdriver.PhantomJS(phantomjs_path)
     driver.set_window_size(1280, 720)
-    
+
     resp_ = urllib2.urlopen('http://localhost:8000/index.html')
     slides = count_slide_from_dom(resp_.read())
     print('{} slides'.format(slides))
@@ -99,7 +100,6 @@ def main():
     pdf_path = os.path.join(os.getcwd(), 'slide.pdf')
 
     from reportlab.lib.pagesizes import A4, landscape
-    from reportlab.platypus import SimpleDocTemplate, Image
     from reportlab.pdfgen import canvas
 
     slide_size = landscape(A4)
