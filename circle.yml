@@ -2,7 +2,7 @@ machine:
   python:
 dependencies:
   pre:
-    - pip install tox
+    - pip install tox pytest
 test:
   override:
     - tox
