@@ -15,6 +15,7 @@ package_requires = [
 test_requires = [
     'pytest',
     'pytest-pep8',
+    'pytest-flakes',
 ]
 
 # Use README.rst for long description.
@@ -46,6 +47,7 @@ class PyTest(TestCommand):
         TestCommand.initialize_options(self)
         self.pytest_args = [
             '--pep8',
+            '--flakes',
         ]
 
     def finalize_options(self):
