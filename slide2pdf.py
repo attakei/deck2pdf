@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-import sys
 import os
-import subprocess
 import urllib2
 import time
 from selenium import webdriver
@@ -42,7 +40,6 @@ def main():
     import multiprocessing
 
     def httpd_server(root_dir):
-        p = multiprocessing.current_process()
         os.chdir(root_dir)
         server.serve_forever()
 
@@ -103,7 +100,6 @@ def main():
     pdf_path = os.path.join(os.getcwd(), 'slide.pdf')
 
     from reportlab.lib.pagesizes import A4, landscape
-    from reportlab.platypus import SimpleDocTemplate, Image
     from reportlab.pdfgen import canvas
 
     slide_size = landscape(A4)
