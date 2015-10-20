@@ -1,0 +1,8 @@
+machine:
+  python:
+dependencies:
+  pre:
+    - pip install tox
+test:
+  override:
+    - tox
