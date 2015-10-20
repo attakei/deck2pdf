@@ -2,7 +2,7 @@ machine:
   python:
 dependencies:
   pre:
-    - pip install tox pytest
+    - pip uninstall slide2pdf -y || true
 test:
   override:
     - tox
