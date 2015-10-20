@@ -14,6 +14,7 @@ package_requires = [
 ]
 test_requires = [
     'pytest',
+    'pytest-pep8',
 ]
 
 # Use README.rst for long description.
@@ -43,7 +44,9 @@ class PyTest(TestCommand):
 
     def initialize_options(self):
         TestCommand.initialize_options(self)
-        self.pytest_args = []
+        self.pytest_args = [
+            '--pep8',
+        ]
 
     def finalize_options(self):
         TestCommand.finalize_options(self)
@@ -51,7 +54,7 @@ class PyTest(TestCommand):
         self.test_suite = True
 
     def run_tests(self):
-        #import here, cause outside the eggs aren't loaded
+        # import here, cause outside the eggs aren't loaded
         import pytest
         errno = pytest.main(self.pytest_args)
         sys.exit(errno)

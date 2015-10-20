@@ -40,6 +40,7 @@ def main():
     server = SocketServer.TCPServer(("", PORT), SimpleHTTPServer.SimpleHTTPRequestHandler)
 
     import multiprocessing
+
     def httpd_server(root_dir):
         p = multiprocessing.current_process()
         os.chdir(root_dir)
@@ -65,7 +66,7 @@ def main():
     print(phantomjs_path)
     driver = webdriver.PhantomJS(phantomjs_path)
     driver.set_window_size(1280, 720)
-    
+
     resp_ = urllib2.urlopen('http://localhost:8000/index.html')
     slides = count_slide_from_dom(resp_.read())
     print('{} slides'.format(slides))
