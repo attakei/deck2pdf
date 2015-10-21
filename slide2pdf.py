@@ -7,7 +7,7 @@ import time
 from selenium import webdriver
 
 
-__version__ = '0.0.2'
+__version__ = '0.1.0'
 
 
 Logger = logging.getLogger('slide2pdf')
