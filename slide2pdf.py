@@ -30,17 +30,20 @@ def count_slide_from_dom(body):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('path', help='Slide endpoint file path', type=str)
+parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 
 
 def main():
     args = parser.parse_args()
     args.path = os.path.abspath(args.path)
+    args.output = os.path.abspath(args.output)
 
     if os.path.isdir(args.path):
         root_dir = args.path
     else:
         root_dir = os.path.dirname(args.path)
     print(root_dir)
+
 
     import SimpleHTTPServer
     import SocketServer
@@ -107,7 +110,7 @@ def main():
         time.sleep(1)
 
     # Merge
-    pdf_path = os.path.join(os.getcwd(), 'slide.pdf')
+    pdf_path = os.path.join(os.getcwd(), args.output)
 
     from reportlab.lib.pagesizes import A4, landscape
     from reportlab.pdfgen import canvas
