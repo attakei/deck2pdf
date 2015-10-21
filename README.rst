@@ -20,7 +20,6 @@ Batch architecture
 
 It is a simple.
 
-#. Run http.server for slide html to run JavaScript.
 #. Capture slide screenshot.
 #. Merge slides and save pdf format.
 
