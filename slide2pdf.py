@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import logging
+import argparse
 import urllib2
 import time
 from selenium import webdriver
@@ -31,10 +32,21 @@ def count_slide_from_dom(body):
     return len(re.split('<\/slide>', body)) - 1
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument('path', help='Slide endpoint file path', type=str)
+parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
+
+
 def main():
-    run_dir = os.getcwd()
-    root_dir = os.path.join(run_dir, '_build', 'slides')
-    Logger.info(root_dir)
+    args = parser.parse_args()
+    args.path = os.path.abspath(args.path)
+    args.output = os.path.abspath(args.output)
+
+    if os.path.isdir(args.path):
+        root_dir = args.path
+    else:
+        root_dir = os.path.dirname(args.path)
+    print(root_dir)
 
     import SimpleHTTPServer
     import SocketServer
