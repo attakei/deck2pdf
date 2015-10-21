@@ -1,5 +1,8 @@
 machine:
   python:
 test:
-  override:
+dependencies:
+  pre:
+    - cd sample && make slides && cd ..
+override:
     - tox
