@@ -46,7 +46,7 @@ def main():
     phantomjs_path = find_phantomjs_path()
     Logger.debug(phantomjs_path)
     driver = webdriver.PhantomJS(phantomjs_path)
-    driver.set_window_size(1280, 720)
+    driver.set_window_size(960, 720)
 
     resp_ = urllib2.urlopen('file://' + args.path)
     slides = count_slide_from_dom(resp_.read())
