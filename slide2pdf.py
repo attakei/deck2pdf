@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 import os
+import logging
 import urllib2
 import time
 from selenium import webdriver
 
 
 __version__ = '0.0.2'
+
+
+Logger = logging.getLogger('slide2pdf')
 
 
 def find_phantomjs_path():
@@ -30,7 +34,7 @@ def count_slide_from_dom(body):
 def main():
     run_dir = os.getcwd()
     root_dir = os.path.join(run_dir, '_build', 'slides')
-    print(root_dir)
+    Logger.info(root_dir)
 
     import SimpleHTTPServer
     import SocketServer
@@ -60,20 +64,20 @@ def main():
 
     # Capture
     phantomjs_path = find_phantomjs_path()
-    print(phantomjs_path)
+    Logger.debug(phantomjs_path)
     driver = webdriver.PhantomJS(phantomjs_path)
     driver.set_window_size(1280, 720)
 
     resp_ = urllib2.urlopen('http://localhost:8000/index.html')
     slides = count_slide_from_dom(resp_.read())
-    print('{} slides'.format(slides))
+    Logger.debug('{} slides'.format(slides))
 
     slide_captures = []
     for slide_idx in range(1, slides):
         url_ = 'http://localhost:8000/index.html#' + str(slide_idx)
         FILENAME = os.path.join(os.getcwd(), "screen_{}.png".format(slide_idx))
-        print(url_)
-        print(FILENAME)
+        Logger.debug(url_)
+        Logger.debug(FILENAME)
 
         # Open Web Browser & Resize 720P
         driver.get(url_)
