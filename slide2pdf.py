@@ -12,6 +12,8 @@ __version__ = '0.1.0'
 
 Logger = logging.getLogger('slide2pdf')
 
+TEMP_CAPTURE_DIR = '.slide2pdf'
+
 
 def find_phantomjs_path():
     candidate_path = (
@@ -42,6 +44,14 @@ def main():
     args.path = os.path.abspath(args.path)
     args.output = os.path.abspath(args.output)
 
+    root_dir = os.getcwd()
+    cache_dir = os.path.join(root_dir, TEMP_CAPTURE_DIR)
+    if not os.path.exists(cache_dir):
+        os.makedirs(cache_dir)
+    elif not os.path.isdir(cache_dir):
+        # TODO: Modify custom exception?
+        raise Exception('{} is not directory.'.format(cache_dir))
+
     # Capture
     phantomjs_path = find_phantomjs_path()
     Logger.debug(phantomjs_path)
@@ -55,7 +65,7 @@ def main():
     slide_captures = []
     for slide_idx in range(1, slides):
         url_ = 'file://' + args.path + '#' + str(slide_idx)
-        FILENAME = os.path.join(os.getcwd(), "screen_{}.png".format(slide_idx))
+        FILENAME = os.path.join(cache_dir, "screen_{}.png".format(slide_idx))
         Logger.debug(url_)
         Logger.debug(FILENAME)
 
