@@ -2,6 +2,7 @@ machine:
   python:
 dependencies:
   pre:
+    - pip install sphinx hieroglyph
     - cd sample && make slides && cd ..
 test:
   override:
