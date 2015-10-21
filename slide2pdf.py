@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 import os
 import logging
 import argparse
@@ -39,8 +40,11 @@ parser.add_argument('path', help='Slide endpoint file path', type=str)
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 
 
-def main():
-    args = parser.parse_args()
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv[1:]
+
+    args = parser.parse_args(argv)
     args.path = os.path.abspath(args.path)
     args.output = os.path.abspath(args.output)
 
