@@ -58,3 +58,8 @@ target/
 
 # Pyenv
 .python-version
+
+# Application caches
+.slide2pdf/
+slide.pdf
+

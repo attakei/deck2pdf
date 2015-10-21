@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 import os
+import logging
 import argparse
 import urllib2
 import time
 from selenium import webdriver
 
 
-__version__ = '0.0.2'
+__version__ = '0.1.1'
+
+
+Logger = logging.getLogger('slide2pdf')
+
+TEMP_CAPTURE_DIR = '.slide2pdf'
 
 
 def find_phantomjs_path():
@@ -38,61 +44,35 @@ def main():
     args.path = os.path.abspath(args.path)
     args.output = os.path.abspath(args.output)
 
-    if os.path.isdir(args.path):
-        root_dir = args.path
-    else:
-        root_dir = os.path.dirname(args.path)
-    print(root_dir)
-
-
-    import SimpleHTTPServer
-    import SocketServer
-    PORT = 8000
-    server = SocketServer.TCPServer(("", PORT), SimpleHTTPServer.SimpleHTTPRequestHandler)
-
-    import multiprocessing
-
-    def httpd_server(root_dir):
-        os.chdir(root_dir)
-        server.serve_forever()
-
-    httpd = multiprocessing.Process(target=httpd_server, args=[root_dir])
-    # httpd.daemon = True
-    httpd.start()
-
-    # Warm up
-    timeout = 10
-    while timeout > 0:
-        try:
-            urllib2.urlopen('http://localhost:8000/')
-            break
-        except urllib2.URLError:
-            pass
-        time.sleep(1)
-        timeout -= 1
+    root_dir = os.getcwd()
+    cache_dir = os.path.join(root_dir, TEMP_CAPTURE_DIR)
+    if not os.path.exists(cache_dir):
+        os.makedirs(cache_dir)
+    elif not os.path.isdir(cache_dir):
+        # TODO: Modify custom exception?
+        raise Exception('{} is not directory.'.format(cache_dir))
 
     # Capture
     phantomjs_path = find_phantomjs_path()
-    print(phantomjs_path)
+    Logger.debug(phantomjs_path)
     driver = webdriver.PhantomJS(phantomjs_path)
-    driver.set_window_size(1280, 720)
+    driver.set_window_size(960, 720)
 
-    resp_ = urllib2.urlopen('http://localhost:8000/index.html')
+    resp_ = urllib2.urlopen('file://' + args.path)
     slides = count_slide_from_dom(resp_.read())
-    print('{} slides'.format(slides))
+    Logger.debug('{} slides'.format(slides))
 
     slide_captures = []
     for slide_idx in range(1, slides):
-        url_ = 'http://localhost:8000/index.html#' + str(slide_idx)
-        FILENAME = os.path.join(os.getcwd(), "screen_{}.png".format(slide_idx))
-        print(url_)
-        print(FILENAME)
+        url_ = 'file://' + args.path + '#' + str(slide_idx)
+        FILENAME = os.path.join(cache_dir, "screen_{}.png".format(slide_idx))
+        Logger.debug(url_)
+        Logger.debug(FILENAME)
 
         # Open Web Browser & Resize 720P
         driver.get(url_)
-        time.sleep(1)
         driver.refresh()
-        time.sleep(1)
+        time.sleep(2)
 
         # Get Screen Shot
         driver.save_screenshot(FILENAME)
@@ -103,11 +83,6 @@ def main():
     import signal
     driver.service.process.send_signal(signal.SIGTERM)
     driver.quit()
-
-    # server.shutdown()
-    httpd.terminate()
-    while httpd.is_alive():
-        time.sleep(1)
 
     # Merge
     pdf_path = os.path.join(os.getcwd(), args.output)
