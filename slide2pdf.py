@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import logging
+import argparse
 import urllib2
 import time
 from selenium import webdriver
@@ -31,36 +32,15 @@ def count_slide_from_dom(body):
     return len(re.split('<\/slide>', body)) - 1
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument('path', help='Slide endpoint file path', type=str)
+parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
+
+
 def main():
-    run_dir = os.getcwd()
-    root_dir = os.path.join(run_dir, '_build', 'slides')
-    Logger.info(root_dir)
-
-    import SimpleHTTPServer
-    import SocketServer
-    PORT = 8000
-    server = SocketServer.TCPServer(("", PORT), SimpleHTTPServer.SimpleHTTPRequestHandler)
-
-    import multiprocessing
-
-    def httpd_server(root_dir):
-        os.chdir(root_dir)
-        server.serve_forever()
-
-    httpd = multiprocessing.Process(target=httpd_server, args=[root_dir])
-    # httpd.daemon = True
-    httpd.start()
-
-    # Warm up
-    timeout = 10
-    while timeout > 0:
-        try:
-            urllib2.urlopen('http://localhost:8000/')
-            break
-        except urllib2.URLError:
-            pass
-        time.sleep(1)
-        timeout -= 1
+    args = parser.parse_args()
+    args.path = os.path.abspath(args.path)
+    args.output = os.path.abspath(args.output)
 
     # Capture
     phantomjs_path = find_phantomjs_path()
@@ -68,13 +48,13 @@ def main():
     driver = webdriver.PhantomJS(phantomjs_path)
     driver.set_window_size(1280, 720)
 
-    resp_ = urllib2.urlopen('http://localhost:8000/index.html')
+    resp_ = urllib2.urlopen('file://' + args.path)
     slides = count_slide_from_dom(resp_.read())
     Logger.debug('{} slides'.format(slides))
 
     slide_captures = []
     for slide_idx in range(1, slides):
-        url_ = 'http://localhost:8000/index.html#' + str(slide_idx)
+        url_ = 'file://' + args.path + '#' + str(slide_idx)
         FILENAME = os.path.join(os.getcwd(), "screen_{}.png".format(slide_idx))
         Logger.debug(url_)
         Logger.debug(FILENAME)
@@ -94,11 +74,6 @@ def main():
     import signal
     driver.service.process.send_signal(signal.SIGTERM)
     driver.quit()
-
-    # server.shutdown()
-    httpd.terminate()
-    while httpd.is_alive():
-        time.sleep(1)
 
     # Merge
     pdf_path = os.path.join(os.getcwd(), 'slide.pdf')
