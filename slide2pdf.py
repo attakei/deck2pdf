@@ -17,12 +17,12 @@ TEMP_CAPTURE_DIR = '.slide2pdf'
 
 
 def find_phantomjs_path():
-    candidate_path = (
-        # local node-modules path
-        os.path.join(os.getcwd(), 'node_modules/phantomjs/bin/phantomjs'),
-        # nodebrew current version path
-        os.path.join(os.environ['HOME'], '.nodebrew/current/bin/phantomjs'),
-    )
+    """Find path of PhantomJS
+
+    :returns: Path of PhantomJS (If it is not found, return None)
+    :rtype: str or None
+    """
+    candidate_path = [d+'/phantomjs' for d in os.getenv('PATH', '').split(':')]
     for path in candidate_path:
         if os.path.exists(path):
             return path
