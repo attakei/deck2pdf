@@ -2,6 +2,7 @@ machine:
   python:
 dependencies:
   pre:
+    - npm install -g phantomjs
     - pip install sphinx hieroglyph
     - cd sample && make slides && cd ..
     - cd tests/testslide && make slides && cd ../..
