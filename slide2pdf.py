@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 import os
 import logging
 import argparse
@@ -7,7 +8,7 @@ import time
 from selenium import webdriver
 
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 Logger = logging.getLogger('slide2pdf')
@@ -16,12 +17,12 @@ TEMP_CAPTURE_DIR = '.slide2pdf'
 
 
 def find_phantomjs_path():
-    candidate_path = (
-        # local node-modules path
-        os.path.join(os.getcwd(), 'node_modules/phantomjs/bin/phantomjs'),
-        # nodebrew current version path
-        os.path.join(os.environ['HOME'], '.nodebrew/current/bin/phantomjs'),
-    )
+    """Find path of PhantomJS
+
+    :returns: Path of PhantomJS (If it is not found, return None)
+    :rtype: str or None
+    """
+    candidate_path = [d+'/phantomjs' for d in os.getenv('PATH', '').split(':')]
     for path in candidate_path:
         if os.path.exists(path):
             return path
@@ -39,8 +40,11 @@ parser.add_argument('path', help='Slide endpoint file path', type=str)
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 
 
-def main():
-    args = parser.parse_args()
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv[1:]
+
+    args = parser.parse_args(argv)
     args.path = os.path.abspath(args.path)
     args.output = os.path.abspath(args.output)
 
