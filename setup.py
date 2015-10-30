@@ -10,12 +10,16 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 package_requires = [
     'selenium',
+    'Ghost.py',
     'reportlab',
 ]
 test_requires = [
     'pytest',
     'pytest-pep8',
     'pytest-flakes',
+]
+optional_requires = [
+    'PySide',
 ]
 
 # Use README.rst for long description.
