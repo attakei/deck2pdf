@@ -49,7 +49,7 @@ class CaptureEngine(object):
         """
         raise NotImplementedError()
 
-    def capture_all(self):
+    def capture_page(self):
         """Capture per page of slide, and save as pdf
         """
         raise NotImplementedError()
