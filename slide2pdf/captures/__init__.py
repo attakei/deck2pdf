@@ -15,6 +15,7 @@ class CaptureEngine(object):
     """
     def __init__(self, url):
         self._url = url
+        self._slide_captures = []
 
     @property
     def url(self):
@@ -33,4 +34,10 @@ class CaptureEngine(object):
     def capture_page(self, page_options):
         """Capture per page of slide, and save as pdf
         """
+        raise NotImplementedError()
+
+    def start(self):
+        raise NotImplementedError()
+
+    def end(self):
         raise NotImplementedError()

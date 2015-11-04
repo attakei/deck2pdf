@@ -3,9 +3,6 @@ import sys
 import os
 import logging
 import argparse
-import urllib2
-import time
-from selenium import webdriver
 
 
 __version__ = '0.1.2'
@@ -14,19 +11,6 @@ __version__ = '0.1.2'
 Logger = logging.getLogger('slide2pdf')
 
 TEMP_CAPTURE_DIR = '.slide2pdf'
-
-
-def find_phantomjs_path():
-    """Find path of PhantomJS
-
-    :returns: Path of PhantomJS (If it is not found, return None)
-    :rtype: str or None
-    """
-    candidate_path = [d+'/phantomjs' for d in os.getenv('PATH', '').split(':')]
-    for path in candidate_path:
-        if os.path.exists(path):
-            return path
-    return None
 
 
 def count_slide_from_dom(body):
@@ -57,36 +41,9 @@ def main(argv=None):
         raise Exception('{} is not directory.'.format(cache_dir))
 
     # Capture
-    phantomjs_path = find_phantomjs_path()
-    Logger.debug(phantomjs_path)
-    driver = webdriver.PhantomJS(phantomjs_path)
-    driver.set_window_size(960, 720)
-
-    resp_ = urllib2.urlopen('file://' + args.path)
-    slides = count_slide_from_dom(resp_.read())
-    Logger.debug('{} slides'.format(slides))
-
-    slide_captures = []
-    for slide_idx in range(1, slides):
-        url_ = 'file://' + args.path + '#' + str(slide_idx)
-        FILENAME = os.path.join(cache_dir, "screen_{}.png".format(slide_idx))
-        Logger.debug(url_)
-        Logger.debug(FILENAME)
-
-        # Open Web Browser & Resize 720P
-        driver.get(url_)
-        driver.refresh()
-        time.sleep(2)
-
-        # Get Screen Shot
-        driver.save_screenshot(FILENAME)
-
-        slide_captures.append(FILENAME)
-
-    # https://github.com/SeleniumHQ/selenium/issues/767
-    import signal
-    driver.service.process.send_signal(signal.SIGTERM)
-    driver.quit()
+    from slide2pdf.captures.phantomjs import CaptureEngine
+    capture = CaptureEngine(args.path)
+    capture.capture_all()
 
     # Merge
     pdf_path = os.path.join(os.getcwd(), 'slide.pdf')
@@ -97,7 +54,7 @@ def main(argv=None):
     slide_size = landscape(A4)
     pdf = canvas.Canvas(pdf_path, pagesize=slide_size)
     idx = 0
-    for slide in slide_captures:
+    for slide in capture._slide_captures:
         pdf.drawImage(slide, 0, 0, slide_size[0], slide_size[1])
         pdf.showPage()
         idx += 1
