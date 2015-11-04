@@ -41,7 +41,7 @@ def main(argv=None):
         raise Exception('{} is not directory.'.format(cache_dir))
 
     # Capture
-    from slide2pdf.captures.phantomjs import CaptureEngine
+    from slide2pdf.captures.ghostpy import CaptureEngine
     capture = CaptureEngine(args.path)
     capture.capture_all()
 
