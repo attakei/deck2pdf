@@ -29,32 +29,6 @@ def find_phantomjs_path():
     return None
 
 
-class CaptureEngine(object):
-    """Slide capturing engine (abstract)
-    """
-    def __init__(self, url):
-        self._url = url
-
-    @property
-    def url(self):
-        return self._url
-
-    @property
-    def save_dir(self):
-        current_dir = os.path.abspath(os.getcwd())
-        return os.path.join(current_dir, TEMP_CAPTURE_DIR)
-
-    def capture_all(self):
-        """Capture all pages of slide
-        """
-        raise NotImplementedError()
-
-    def capture_page(self, page_options):
-        """Capture per page of slide, and save as pdf
-        """
-        raise NotImplementedError()
-
-
 def count_slide_from_dom(body):
     # FIXME: Too bad know-how
     import re
