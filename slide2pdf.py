@@ -44,6 +44,16 @@ class CaptureEngine(object):
         current_dir = os.path.abspath(os.getcwd())
         return os.path.join(current_dir, TEMP_CAPTURE_DIR)
 
+    def capture_all(self):
+        """Capture all pages of slide
+        """
+        raise NotImplementedError()
+
+    def capture_all(self):
+        """Capture per page of slide, and save as pdf
+        """
+        raise NotImplementedError()
+
 
 def count_slide_from_dom(body):
     # FIXME: Too bad know-how

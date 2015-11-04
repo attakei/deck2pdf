@@ -27,3 +27,11 @@ class TestForCaptureEngine(object):
         engine = slide2pdf.CaptureEngine('test')
         assert engine.url == 'test'
         assert engine.save_dir == os.path.join(current_dir, '.slide2pdf')
+
+    def test_capture_page_is_abstract(self):
+        engine = slide2pdf.CaptureEngine('test')
+        raises(NotImplementedError, engine.capture_page, ())
+
+    def test_capture_all_is_abstract(self):
+        engine = slide2pdf.CaptureEngine('test')
+        raises(NotImplementedError, engine.capture_all)
