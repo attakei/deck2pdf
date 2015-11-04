@@ -10,12 +10,16 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 package_requires = [
     'selenium',
+    'Ghost.py',
     'reportlab',
 ]
 test_requires = [
     'pytest',
     'pytest-pep8',
     'pytest-flakes',
+]
+optional_requires = [
+    'PySide',
 ]
 
 # Use README.rst for long description.
@@ -64,7 +68,7 @@ class PyTest(TestCommand):
 
 setup(
     name='slide2pdf',
-    version=find_version('slide2pdf.py'),
+    version=find_version('slide2pdf/__init__.py'),
     url='https://github.com/attakei/slide2pdf',
     description='Convert html5-slide into pdf',
     long_description=long_description,
