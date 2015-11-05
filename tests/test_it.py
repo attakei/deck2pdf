@@ -16,7 +16,7 @@ class TestForMain(object):
     def test_help(self):
         raises(SystemExit, slide2pdf.main, [])
         raises(SystemExit, slide2pdf.main, ['-h'])
-    
+
     @skip_in_ci
     def test_files(self):
         test_slide_path = os.path.join(test_dir, 'testslide/_build/slides/index.html')
