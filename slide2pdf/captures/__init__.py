@@ -4,6 +4,7 @@
 import os
 import logging
 import importlib
+from .. import errors
 
 
 Logger = logging.getLogger('slide2pdf.captures')
@@ -19,11 +20,22 @@ def find_engine(name):
         return None
 
 
+def resolve_path(path):
+    if path.startswith('http://'):
+        return path
+    elif path.startswith('https://'):
+        return path
+    realpath = os.path.abspath(path)
+    if not os.path.exists(realpath):
+        raise errors.ResourceNotFound()
+    return 'file://{}'.format(realpath)
+
+
 class CaptureEngine(object):
     """Slide capturing engine (abstract)
     """
     def __init__(self, url):
-        self._url = url
+        self._url = resolve_path(url)
         self._slide_captures = []
 
     @property
