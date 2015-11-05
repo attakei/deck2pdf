@@ -42,14 +42,10 @@ class TestForPhantomJsCaptureEngine(object):
         return phantomjs.CaptureEngine
 
     def test_init(self):
-        raises(errors.ResourceNotFound, self._class, ('test'))
-        # assert engine.url == 'file://test'
-        # assert engine.save_dir == os.path.join(current_dir, '.slide2pdf')
-
-    def test_capture_page(self):
-        raises(errors.ResourceNotFound, self._class, ('test'))
-        # engine = captures.CaptureEngine('test')
-        # raises(NotImplementedError, engine.capture_page, (1))
+        # Same to TestForCaptureEngine.test_init_web_resource
+        engine = self._class('http://example.com/')
+        assert engine.url == 'http://example.com/'
+        assert engine.save_dir == os.path.join(current_dir, '.slide2pdf')
 
 
 class TestForFindEngine(object):

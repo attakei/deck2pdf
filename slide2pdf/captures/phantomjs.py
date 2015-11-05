@@ -24,10 +24,6 @@ def find_phantomjs_path():
 
 
 class CaptureEngine(AbstractEngine):
-    def __init__(self, url):
-        super(CaptureEngine, self).__init__(url)
-        self._url = 'file://' + self._url
-
     def start(self):
         self._phantomjs_path = find_phantomjs_path()
         Logger.debug(self._phantomjs_path)
