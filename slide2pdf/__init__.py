@@ -21,6 +21,7 @@ def count_slide_from_dom(body):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('path', help='Slide endpoint file path', type=str)
+parser.add_argument('-c', '--capture', help='Slide capture engine name', type=str, default='phantomjs')
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 
 
@@ -41,7 +42,10 @@ def main(argv=None):
         raise Exception('{} is not directory.'.format(cache_dir))
 
     # Capture
-    from slide2pdf.captures.ghostpy import CaptureEngine
+    from slide2pdf.captures import find_engine
+    CaptureEngine = find_engine(args.capture)
+    if CaptureEngine is None:
+        raise Exception('Engine name "{}" is not found.'.format(args.capture))
     capture = CaptureEngine(args.path)
     capture.capture_all()
 
