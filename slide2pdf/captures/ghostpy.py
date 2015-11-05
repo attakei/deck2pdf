@@ -31,12 +31,16 @@ class CaptureEngine(AbstractEngine):
     def capture_page(self, slide_idx, is_last=False):
         FILENAME = os.path.join(self.save_dir, "screen_{}.png".format(slide_idx))
         curSlide = int(self._session.evaluate('slidedeck.curSlide_')[0])
-        while not is_last and slide_idx >= curSlide:
-            self._session.evaluate('slidedeck.nextSlide();')
-            curSlide = int(self._session.evaluate('slidedeck.curSlide_')[0])
+        if is_last:
+            self._session.open('{}#{}'.format(self._url, slide_idx+1))
+        else:
+            while slide_idx >= curSlide:
+                self._session.evaluate('slidedeck.nextSlide();')
+                curSlide = int(self._session.evaluate('slidedeck.curSlide_')[0])
+                Logger.debug(slide_idx, curSlide)
+            self._session.evaluate('slidedeck.prevSlide();')
         # Get Screen Shot
-        self._session.evaluate('slidedeck.prevSlide();')
-        self._session.sleep(1.5)
+        self._session.sleep(2)
         self._session.capture_to(FILENAME)
         self._slide_captures.append(FILENAME)
 
