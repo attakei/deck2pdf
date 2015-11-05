@@ -3,11 +3,20 @@
 """
 import os
 import logging
+import importlib
 
 
 Logger = logging.getLogger('slide2pdf.captures')
 
 TEMP_CAPTURE_DIR = '.slide2pdf'
+
+
+def find_engine(name):
+    try:
+        import_ = importlib.import_module('.{}'.format(name), 'slide2pdf.captures')
+        return import_.CaptureEngine
+    except ImportError:
+        return None
 
 
 class CaptureEngine(object):

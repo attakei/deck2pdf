@@ -36,3 +36,15 @@ class TestForPhantomJsCaptureEngine(object):
     def test_capture_page(self):
         engine = captures.CaptureEngine('test')
         raises(NotImplementedError, engine.capture_page, (1))
+
+
+class TestForFindEngine(object):
+    def test_not_found(self):
+        from slide2pdf.captures import find_engine
+        assert find_engine('noengine') is None
+
+    def test_found_ghostpy(self):
+        from slide2pdf.captures import find_engine
+        from slide2pdf.captures.ghostpy import CaptureEngine
+        engine = find_engine('ghostpy')
+        assert engine == CaptureEngine
