@@ -25,6 +25,7 @@ def find_phantomjs_path():
 
 class CaptureEngine(AbstractEngine):
     def start(self):
+        super(CaptureEngine, self).start()
         self._phantomjs_path = find_phantomjs_path()
         Logger.debug(self._phantomjs_path)
         self._driver = webdriver.PhantomJS(self._phantomjs_path)

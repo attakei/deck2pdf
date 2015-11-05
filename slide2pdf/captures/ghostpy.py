@@ -17,6 +17,7 @@ class CaptureEngine(AbstractEngine):
         self._url = 'file://' + self._url
 
     def start(self):
+        super(CaptureEngine, self).start()
         self._ghost = Ghost()
         self._session = self._ghost.start()
         self._session.set_viewport_size(1135, 740)

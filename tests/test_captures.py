@@ -26,6 +26,13 @@ class TestForCaptureEngine(object):
         assert engine.url == 'http://example.com/'
         assert engine.save_dir == os.path.join(current_dir, '.slide2pdf')
 
+    def test_start_for_save_dir(self):
+        engine = self._class('http://example.com/')
+        engine.start()
+        import glob
+        files = glob.glob('{}/*'.format(engine.save_dir))
+        assert len(files) == 0
+
     def test_capture_page_is_abstract(self):
         engine = self._class('http://example.com/')
         raises(NotImplementedError, engine.capture_page, ())

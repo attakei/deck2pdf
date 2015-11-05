@@ -4,6 +4,7 @@
 import os
 import logging
 import importlib
+import shutil
 from .. import errors
 
 
@@ -58,7 +59,8 @@ class CaptureEngine(object):
         raise NotImplementedError()
 
     def start(self):
-        raise NotImplementedError()
+        shutil.rmtree(self.save_dir)
+        os.makedirs(self.save_dir)
 
     def end(self):
         raise NotImplementedError()
