@@ -65,3 +65,11 @@ class TestForFindEngine(object):
         from slide2pdf.captures.ghostpy import CaptureEngine
         engine = find_engine('ghostpy')
         assert engine == CaptureEngine
+
+
+def test_resolve_path():
+    from slide2pdf.captures import resolve_path
+    assert resolve_path('http://example.com') == 'http://example.com'
+    assert resolve_path('https://example.com') == 'https://example.com'
+    assert resolve_path('tests/testslide/index.rst') == 'file://{}/{}'.format(test_dir, 'testslide/index.rst')
+    raises(errors.ResourceNotFound, resolve_path, ('not_found'))
