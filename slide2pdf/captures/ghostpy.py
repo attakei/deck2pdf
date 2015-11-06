@@ -12,10 +12,6 @@ Logger = logging.getLogger(__file__)
 
 
 class CaptureEngine(AbstractEngine):
-    def __init__(self, url):
-        super(CaptureEngine, self).__init__(url)
-        self._url = 'file://' + self._url
-
     def start(self):
         super(CaptureEngine, self).start()
         self._ghost = Ghost()

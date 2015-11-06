@@ -58,6 +58,19 @@ class TestForPhantomJsCaptureEngine(object):
         assert engine.save_dir == os.path.join(current_dir, '.slide2pdf')
 
 
+class TestForGhostpyCaptureEngine(object):
+    @property
+    def _class(self):
+        from slide2pdf.captures import ghostpy
+        return ghostpy.CaptureEngine
+
+    def test_init(self):
+        # Same to TestForCaptureEngine.test_init_web_resource
+        engine = self._class('http://example.com/')
+        assert engine.url == 'http://example.com/'
+        assert engine.save_dir == os.path.join(current_dir, '.slide2pdf')
+
+
 class TestForFindEngine(object):
     def test_not_found(self):
         from slide2pdf.captures import find_engine
