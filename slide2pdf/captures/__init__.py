@@ -3,6 +3,9 @@
 """
 import os
 import logging
+import importlib
+import shutil
+from .. import errors
 
 
 Logger = logging.getLogger('slide2pdf.captures')
@@ -10,11 +13,30 @@ Logger = logging.getLogger('slide2pdf.captures')
 TEMP_CAPTURE_DIR = '.slide2pdf'
 
 
+def find_engine(name):
+    try:
+        import_ = importlib.import_module('.{}'.format(name), 'slide2pdf.captures')
+        return import_.CaptureEngine
+    except ImportError:
+        return None
+
+
+def resolve_path(path):
+    if path.startswith('http://'):
+        return path
+    elif path.startswith('https://'):
+        return path
+    realpath = os.path.abspath(path)
+    if not os.path.exists(realpath):
+        raise errors.ResourceNotFound()
+    return 'file://{}'.format(realpath)
+
+
 class CaptureEngine(object):
     """Slide capturing engine (abstract)
     """
     def __init__(self, url):
-        self._url = url
+        self._url = resolve_path(url)
         self._slide_captures = []
 
     @property
@@ -37,7 +59,8 @@ class CaptureEngine(object):
         raise NotImplementedError()
 
     def start(self):
-        raise NotImplementedError()
+        shutil.rmtree(self.save_dir, True)
+        os.makedirs(self.save_dir)
 
     def end(self):
         raise NotImplementedError()
