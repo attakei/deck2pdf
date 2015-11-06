@@ -59,7 +59,7 @@ class CaptureEngine(object):
         raise NotImplementedError()
 
     def start(self):
-        shutil.rmtree(self.save_dir)
+        shutil.rmtree(self.save_dir, True)
         os.makedirs(self.save_dir)
 
     def end(self):

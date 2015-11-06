@@ -28,8 +28,11 @@ class TestForCaptureEngine(object):
 
     def test_start_for_save_dir(self):
         engine = self._class('http://example.com/')
-        engine.start()
+        import shutil
         import glob
+        shutil.rmtree(engine.save_dir, True)
+        engine.start()
+        assert os.path.exists(engine.save_dir) is True
         files = glob.glob('{}/*'.format(engine.save_dir))
         assert len(files) == 0
 
