@@ -21,7 +21,7 @@ def count_slide_from_dom(body):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('path', help='Slide endpoint file path', type=str)
-parser.add_argument('-c', '--capture', help='Slide capture engine name', type=str, default='phantomjs')
+parser.add_argument('-c', '--capture', help='Slide capture engine name', type=str, default='ghostpy')
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 
 
