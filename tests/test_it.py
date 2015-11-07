@@ -20,3 +20,9 @@ class TestForMain(object):
         test_slide_path = os.path.join(test_dir, 'testslide/_build/slides/index.html')
         deck2pdf.main([test_slide_path, '-c', 'stub'])
         assert os.path.exists(os.path.join(current_dir, '.deck2pdf'))
+
+    def test_output_file_by_name(self):
+        output_path = os.path.join(current_dir, '.deck2pdf', 'test.output')
+        test_slide_path = os.path.join(test_dir, 'testslide/_build/slides/index.html')
+        deck2pdf.main([test_slide_path, '-c', 'stub', '-o', output_path])
+        assert os.path.exists(output_path)
