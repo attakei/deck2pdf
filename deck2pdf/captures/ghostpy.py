@@ -1,5 +1,5 @@
 # -*- coding:utf8 -*-
-"""slide2pdf capturing engine by Shost.py
+"""deck2pdf capturing engine by Shost.py
 
 """
 from . import CaptureEngine as AbstractEngine

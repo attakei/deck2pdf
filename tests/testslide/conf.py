@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# slide2pdf test documentation build configuration file, created by
+# deck2pdf test documentation build configuration file, created by
 # sphinx-quickstart on Thu Oct 22 13:37:21 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -53,7 +53,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'slide2pdf test'
+project = u'deck2pdf test'
 copyright = u'2015, attakei'
 author = u'attakei'
 
@@ -229,7 +229,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'slide2pdftest.tex', u'slide2pdf test Documentation',
+  (master_doc, 'slide2pdftest.tex', u'deck2pdf test Documentation',
    u'attakei', 'manual'),
 ]
 
@@ -259,7 +259,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'slide2pdftest', u'slide2pdf test Documentation',
+    (master_doc, 'slide2pdftest', u'deck2pdf test Documentation',
      [author], 1)
 ]
 
@@ -273,7 +273,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'slide2pdftest', u'slide2pdf test Documentation',
+  (master_doc, 'slide2pdftest', u'deck2pdf test Documentation',
    author, 'slide2pdftest', 'One line description of project.',
    'Miscellaneous'),
 ]
@@ -297,7 +297,7 @@ extensions += [
     'hieroglyph',
 ]
 
-slide_title = 'slide2pdf test'
+slide_title = 'deck2pdf test'
 slide_theme = 'slides2'
 slide_levels = 3
 

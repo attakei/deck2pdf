@@ -5,12 +5,12 @@ import logging
 import argparse
 
 
-__version__ = '0.2.0'
+__version__ = '0.1.0'
 
 
-Logger = logging.getLogger('slide2pdf')
+Logger = logging.getLogger('deck2pdf')
 
-TEMP_CAPTURE_DIR = '.slide2pdf'
+TEMP_CAPTURE_DIR = '.deck2pdf'
 
 
 def count_slide_from_dom(body):
@@ -42,7 +42,7 @@ def main(argv=None):
         raise Exception('{} is not directory.'.format(cache_dir))
 
     # Capture
-    from slide2pdf.captures import find_engine
+    from deck2pdf.captures import find_engine
     CaptureEngine = find_engine(args.capture)
     if CaptureEngine is None:
         raise Exception('Engine name "{}" is not found.'.format(args.capture))
