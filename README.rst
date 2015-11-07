@@ -16,7 +16,7 @@ Convert html5-slides into PDF slide
    :alt: CodeClimate GPA
 
 
-deck2pdf is batch application that will convert your `Google html5slides <http://code.google.com/p/html5slides/>`_ into PDF format keeping slide layout.
+deck2pdf is batch application that will convert your `Google I/O 2012 slides <https://code.google.com/p/io-2012-slides/>`_ into PDF format keeping slide layout.
 
 
 Install
@@ -41,7 +41,7 @@ Simply usage::
    $ ls
    slide.pdf
 
-Specify slide name (but not work...)::
+Specify slide name::
 
    $ deck2pdf -o myslide.pdf <slide-url>
    $ ls
