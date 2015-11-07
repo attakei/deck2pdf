@@ -1,6 +1,21 @@
 Convert html5-slides into PDF slide
 ===================================
 
+**Badges**
+
+.. image:: https://img.shields.io/pypi/v/deck2pdf.svg
+   :target: https://pypi.python.org/pypi/deck2pdf
+   :alt: PyPI latest
+
+.. image:: https://img.shields.io/circleci/project/attakei/deck2pdf.svg
+   :target: https://circleci.com/gh/attakei/deck2pdf
+   :alt: CircleCI Status (not all tests)
+
+.. image:: https://img.shields.io/codeclimate/github/attakei/deck2pdf.svg
+   :target: https://codeclimate.com/github/attakei/deck2pdf
+   :alt: CodeClimate GPA
+
+
 deck2pdf is batch application that will convert your `Google html5slides <http://code.google.com/p/html5slides/>`_ into PDF format keeping slide layout.
 
 
