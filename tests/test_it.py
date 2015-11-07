@@ -1,12 +1,12 @@
 import os
 import shutil
 import slide2pdf
-from pytest import raises, mark
-
-
-current_dir = os.path.abspath(os.getcwd())
-test_dir = os.path.abspath(os.path.dirname(__file__))
-skip_in_ci = mark.skipif("'FULL_TEST' not in os.environ")
+from pytest import raises
+from . import (
+    current_dir,
+    test_dir,
+    skip_in_ci,
+)
 
 
 class TestForMain(object):
