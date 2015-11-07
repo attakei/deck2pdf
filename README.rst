@@ -10,7 +10,7 @@ Install
 deck2pdf is required `PySide <http://pyside.github.io/docs/pyside/index.html>`_ for `Ghost.py <https://github.com/jeanphix/Ghost.py>`_ .
 
 
-.. code::
+Command::
 
    $ pip install pyside
    $ pyside_postinstall.py -install
