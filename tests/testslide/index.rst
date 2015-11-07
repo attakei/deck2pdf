@@ -1,9 +1,9 @@
 
-.. slide2pdf test slides file, created by
+.. deck2pdf test slides file, created by
    hieroglyph-quickstart on Thu Oct 22 13:37:21 2015.
 
 
-slide2pdf test
+deck2pdf test
 ==============
 
 Contents:

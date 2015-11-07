@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sample for slide2pdf documentation build configuration file, created by
+# Sample for deck2pdf documentation build configuration file, created by
 # sphinx-quickstart on Thu Oct 15 23:55:25 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -54,7 +54,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Sample for slide2pdf'
+project = 'Sample for deck2pdf'
 copyright = '2015, attakei'
 author = 'attakei'
 
@@ -230,7 +230,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'Sampleforslide2pdf.tex', 'Sample for slide2pdf Documentation',
+  (master_doc, 'Sampleforslide2pdf.tex', 'Sample for deck2pdf Documentation',
    'attakei', 'manual'),
 ]
 
@@ -260,7 +260,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'sampleforslide2pdf', 'Sample for slide2pdf Documentation',
+    (master_doc, 'sampleforslide2pdf', 'Sample for deck2pdf Documentation',
      [author], 1)
 ]
 
@@ -274,7 +274,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'Sampleforslide2pdf', 'Sample for slide2pdf Documentation',
+  (master_doc, 'Sampleforslide2pdf', 'Sample for deck2pdf Documentation',
    author, 'Sampleforslide2pdf', 'One line description of project.',
    'Miscellaneous'),
 ]
@@ -298,7 +298,7 @@ extensions += [
     'hieroglyph',
 ]
 
-slide_title = 'Sample for slide2pdf'
+slide_title = 'Sample for deck2pdf'
 slide_theme = 'slides2'
 slide_levels = 3
 

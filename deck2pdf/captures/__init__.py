@@ -8,14 +8,14 @@ import shutil
 from .. import errors
 
 
-Logger = logging.getLogger('slide2pdf.captures')
+Logger = logging.getLogger('deck2pdf.captures')
 
-TEMP_CAPTURE_DIR = '.slide2pdf'
+TEMP_CAPTURE_DIR = '.deck2pdf'
 
 
 def find_engine(name):
     try:
-        import_ = importlib.import_module('.{}'.format(name), 'slide2pdf.captures')
+        import_ = importlib.import_module('.{}'.format(name), 'deck2pdf.captures')
         return import_.CaptureEngine
     except ImportError:
         return None

@@ -9,7 +9,6 @@ from setuptools.command.test import test as TestCommand
 here = os.path.abspath(os.path.dirname(__file__))
 
 package_requires = [
-    'selenium',
     'Ghost.py',
     'reportlab',
 ]
@@ -67,28 +66,28 @@ class PyTest(TestCommand):
 
 
 setup(
-    name='slide2pdf',
-    version=find_version('slide2pdf/__init__.py'),
-    url='https://github.com/attakei/slide2pdf',
+    name='deck2pdf',
+    version=find_version('deck2pdf/__init__.py'),
+    url='https://github.com/attakei/deck2pdf',
     description='Convert html5-slide into pdf',
     long_description=long_description,
     author='attakei',
     author_email='attakei@gmail.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'License :: OSI Approved :: MIT License',
         'Operating System :: MacOS',
     ],
-    keywords='html5slide pdf',
+    keywords='html5slides pdf',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=package_requires,
     tests_require=test_requires,
     cmdclass={'test': PyTest},
     entry_points={
         "console_scripts": [
-            "slide2pdf=slide2pdf:main",
+            "deck2pdf=deck2pdf:main",
         ]
     }
 )

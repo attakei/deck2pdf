@@ -60,6 +60,6 @@ target/
 .python-version
 
 # Application caches
-.slide2pdf/
+.deck2pdf/
 slide.pdf
 
