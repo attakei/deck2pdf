@@ -63,4 +63,4 @@ class CaptureEngine(object):
         os.makedirs(self.save_dir)
 
     def end(self):
-        raise NotImplementedError()
+        pass

@@ -31,7 +31,6 @@ def main(argv=None):
 
     args = parser.parse_args(argv)
     args.path = os.path.abspath(args.path)
-    args.output = os.path.abspath(args.output)
 
     root_dir = os.getcwd()
     cache_dir = os.path.join(root_dir, TEMP_CAPTURE_DIR)
@@ -50,7 +49,7 @@ def main(argv=None):
     capture.capture_all()
 
     # Merge
-    pdf_path = os.path.join(os.getcwd(), 'slide.pdf')
+    pdf_path = os.path.abspath(args.output)
 
     from reportlab.lib.pagesizes import A4, landscape
     from reportlab.pdfgen import canvas
