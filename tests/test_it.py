@@ -5,7 +5,6 @@ from pytest import raises
 from . import (
     current_dir,
     test_dir,
-    skip_in_ci,
 )
 
 
@@ -17,8 +16,7 @@ class TestForMain(object):
         raises(SystemExit, deck2pdf.main, [])
         raises(SystemExit, deck2pdf.main, ['-h'])
 
-    @skip_in_ci
     def test_files(self):
         test_slide_path = os.path.join(test_dir, 'testslide/_build/slides/index.html')
-        deck2pdf.main([test_slide_path, ])
+        deck2pdf.main([test_slide_path, '-c', 'stub'])
         assert os.path.exists(os.path.join(current_dir, '.deck2pdf'))
