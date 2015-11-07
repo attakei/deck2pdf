@@ -1,10 +1,10 @@
 import os
 from pytest import raises
 from slide2pdf import errors
-
-
-current_dir = os.path.abspath(os.getcwd())
-test_dir = os.path.abspath(os.path.dirname(__file__))
+from . import (
+    current_dir,
+    test_dir,
+)
 
 
 class TestForCaptureEngine(object):
