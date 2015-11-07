@@ -25,11 +25,27 @@ Install
 deck2pdf is required `PySide <http://pyside.github.io/docs/pyside/index.html>`_ for `Ghost.py <https://github.com/jeanphix/Ghost.py>`_ .
 
 
-Command::
+::
 
    $ pip install pyside
    $ pyside_postinstall.py -install
    $ pip install https://github.com/attakei/deck2pdf
+
+
+Usage
+-----
+
+Simply usage::
+
+   $ deck2pdf <slide-url>
+   $ ls
+   slide.pdf
+
+Specify slide name (but not work...)::
+
+   $ deck2pdf -o myslide.pdf <slide-url>
+   $ ls
+   myslide.pdf
 
 
 Batch architecture
