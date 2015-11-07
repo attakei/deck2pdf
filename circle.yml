@@ -2,7 +2,7 @@ machine:
   python:
 dependencies:
   pre:
-    - pip install sphinx hieroglyph
+    - pip install -r test_requirements.txt
     - cd sample && make slides && cd ..
     - cd tests/testslide && make slides && cd ../..
 test:
