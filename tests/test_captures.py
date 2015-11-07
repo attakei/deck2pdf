@@ -45,30 +45,31 @@ class TestForCaptureEngine(object):
         raises(NotImplementedError, engine.capture_all)
 
 
-class TestForPhantomJsCaptureEngine(object):
+class CommonTestForCaptureEngine(object):
+    @property
+    def _class(self):
+        from deck2pdf.captures import stub
+        return stub.CaptureEngine
+
+    def test_init(self):
+        # Same to TestForCaptureEngine.test_init_web_resource
+        engine = self._class('http://example.com/')
+        assert engine.url == 'http://example.com/'
+        assert engine.save_dir == os.path.join(current_dir, '.deck2pdf')
+
+
+class TestForPhantomJsCaptureEngine(CommonTestForCaptureEngine):
     @property
     def _class(self):
         from deck2pdf.captures import phantomjs
         return phantomjs.CaptureEngine
 
-    def test_init(self):
-        # Same to TestForCaptureEngine.test_init_web_resource
-        engine = self._class('http://example.com/')
-        assert engine.url == 'http://example.com/'
-        assert engine.save_dir == os.path.join(current_dir, '.deck2pdf')
 
-
-class TestForGhostpyCaptureEngine(object):
+class TestForGhostpyCaptureEngine(CommonTestForCaptureEngine):
     @property
     def _class(self):
         from deck2pdf.captures import ghostpy
         return ghostpy.CaptureEngine
-
-    def test_init(self):
-        # Same to TestForCaptureEngine.test_init_web_resource
-        engine = self._class('http://example.com/')
-        assert engine.url == 'http://example.com/'
-        assert engine.save_dir == os.path.join(current_dir, '.deck2pdf')
 
 
 class TestForFindEngine(object):
