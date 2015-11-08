@@ -18,11 +18,21 @@ def test_resolve_path():
     raises(errors.ResourceNotFound, resolve_path, ('not_found'))
 
 
-class WebResourceTests(object):
-    def test_not_found(self):
-        raises(errors.ResourceNotFound, webresources.WebResource, (__file__+'not_found'))
+def test_not_found():
+    raises(errors.ResourceNotFound, webresources.WebResource, (__file__+'not_found'))
 
-    def test_is_local(self):
-        res = webresources.WebResource(__file__)
-        assert res.is_local
-        assert res.url.startswith('file://')
+
+def test_is_local():
+    res = webresources.WebResource(__file__)
+    assert res.is_local
+    assert res.url.startswith('file://')
+
+
+def test_init_not_found():
+    res = webresources.WebResource('http://example.com/not_found')
+    raises(errors.ResourceNotFound, res.init)
+
+
+def test_init_not_html():
+    res = webresources.WebResource(__file__)
+    raises(errors.ResourceIsNotHtml, res.init)

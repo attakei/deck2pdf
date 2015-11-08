@@ -3,6 +3,7 @@
 """
 from __future__ import unicode_literals
 import os
+from urllib2 import urlopen, HTTPError
 from . import errors
 
 __author__ = 'attakei'
@@ -35,3 +36,12 @@ class WebResource(object):
     @property
     def is_local(self):
         return self.url.startswith('file://')
+
+    def init(self):
+        try:
+            resp = urlopen(self.url)
+            header = resp.info()
+            if header.getsubtype() != 'html':
+                raise errors.ResourceIsNotHtml()
+        except HTTPError as err:
+            raise errors.ResourceNotFound()

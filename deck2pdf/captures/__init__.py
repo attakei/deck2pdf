@@ -51,6 +51,7 @@ class CaptureEngine(object):
     def start(self):
         shutil.rmtree(self.save_dir, True)
         os.makedirs(self.save_dir)
+        self._web_resource.init()
 
     def end(self):
         pass
