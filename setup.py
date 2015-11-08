@@ -75,10 +75,12 @@ setup(
     author_email='attakei@gmail.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta'
         'Environment :: Console',
+        'Environment :: X11 Applications :: Qt',
         'License :: OSI Approved :: MIT License',
         'Operating System :: MacOS',
+        'Programming Language :: Python :: 2.7',
     ],
     keywords='html5slides pdf',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
