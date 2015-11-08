@@ -2,12 +2,16 @@
 """
 """
 from __future__ import unicode_literals
+import os
 from deck2pdf import webresources, errors
 from pytest import raises
 from . import test_dir
 
 
 __author__ = 'attakei'
+
+
+test_slide_path = os.path.join(test_dir, 'testslide/stub.html')
 
 
 def test_resolve_path():

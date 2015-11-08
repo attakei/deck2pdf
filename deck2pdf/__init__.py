@@ -24,6 +24,7 @@ parser.add_argument('path', help='Slide endpoint file path', type=str)
 parser.add_argument('-c', '--capture', help='Slide capture engine name', type=str, default='ghostpy')
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 parser.add_argument('-n', '--num', help='Num of slides', type=int, default=None)
+parser.add_argument('-s', '--slide', help='Slide style', type=str, default=None)
 
 
 def main(argv=None):

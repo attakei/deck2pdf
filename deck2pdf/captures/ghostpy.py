@@ -11,6 +11,14 @@ from ghost import Ghost
 Logger = logging.getLogger(__file__)
 
 
+def calc_center_region(frame_size, slide_size):
+    margin_x = (frame_size.width() - slide_size[0]) / 2
+    margin_y = (frame_size.height() - slide_size[1]) / 2
+    region = (margin_x, margin_y, slide_size[0] + margin_x, slide_size[1] + margin_y)
+
+    return region
+
+
 class CaptureEngine(AbstractEngine):
     def start(self):
         super(CaptureEngine, self).start()
@@ -30,10 +38,11 @@ class CaptureEngine(AbstractEngine):
         FILENAME = os.path.join(self.save_dir, "screen_{}.png".format(slide_idx))
         url = '{}#{}'.format(self.url, slide_idx+1)
         session = self._ghost.start()
-        session.set_viewport_size(1135, 740)
+        session.set_viewport_size(*self._web_resource.viewport_size)
         session.open(url)
-        session.sleep(2)
-        session.capture_to(FILENAME)
+        session.sleep(self._web_resource.sleep)
+        region = calc_center_region(session.main_frame.contentsSize(), self._web_resource.slide_size)
+        session.capture_to(FILENAME, region=region)
         session.exit()
         self._slide_captures.append(FILENAME)
 

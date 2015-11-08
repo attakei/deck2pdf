@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 import os
 from urllib2 import urlopen, HTTPError
+
 from . import errors
 
 __author__ = 'attakei'
@@ -24,7 +25,7 @@ class WebResource(object):
     """Capture target web-resource
 
     """
-    def __init__(self, path):
+    def __init__(self, path, style=None):
         """
 
         :param path:
@@ -32,6 +33,10 @@ class WebResource(object):
         :return:
         """
         self.url = resolve_path(path)
+        self.style = style
+        self.viewport_size = (800, 600)
+        self.slide_size = (800, 600)
+        self.sleep = 0
 
     @property
     def is_local(self):
@@ -45,3 +50,21 @@ class WebResource(object):
                 raise errors.ResourceIsNotHtml()
         except HTTPError as err:
             raise errors.ResourceNotFound()
+        if self.style in Style:
+            self.viewport_size = Style[self.style].get('viewport', self.viewport_size)
+            self.slide_size = Style[self.style].get('slide', self.slide_size)
+            self.sleep = Style[self.style].get('sleep', self.sleep)
+
+
+Style = {
+    'html5slides': {
+        'viewport': (1100, 750),
+        'slide': (900, 700),
+        'sleep': 0,
+    },
+    'io2012': {
+        'viewport': (1100, 700),
+        'slide': (1100, 700),
+        'sleep': 2,
+    },
+}
