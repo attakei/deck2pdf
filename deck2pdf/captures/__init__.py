@@ -25,8 +25,8 @@ def find_engine(name):
 class CaptureEngine(object):
     """Slide capturing engine (abstract)
     """
-    def __init__(self, url):
-        self._web_resource = WebResource(url)
+    def __init__(self, web_resource):
+        self._web_resource = web_resource
         self._slide_captures = []
 
     @property

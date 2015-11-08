@@ -3,7 +3,7 @@ import sys
 import os
 import logging
 import argparse
-
+from .webresources import WebResource
 
 __version__ = '0.1.1'
 
@@ -41,12 +41,14 @@ def main(argv=None):
         # TODO: Modify custom exception?
         raise Exception('{} is not directory.'.format(cache_dir))
 
+    web_resource = WebResource(args.path, args.slide)
+
     # Capture
     from deck2pdf.captures import find_engine
     CaptureEngine = find_engine(args.capture)
     if CaptureEngine is None:
         raise Exception('Engine name "{}" is not found.'.format(args.capture))
-    capture = CaptureEngine(args.path)
+    capture = CaptureEngine(web_resource)
     capture.capture_all(args.num)
 
     # Merge

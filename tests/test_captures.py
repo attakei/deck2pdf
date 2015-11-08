@@ -1,10 +1,12 @@
 import os
 from pytest import raises
-from deck2pdf import errors
+from deck2pdf.webresources import WebResource
 from . import (
     current_dir,
-    test_dir,
 )
+
+
+http_web_resource = WebResource('http://example.com/')
 
 
 class TestForCaptureEngine(object):
@@ -13,21 +15,13 @@ class TestForCaptureEngine(object):
         from deck2pdf.captures import CaptureEngine
         return CaptureEngine
 
-    def test_init_not_resource(self):
-        raises(errors.ResourceNotFound, self._class, ('test'))
-
-    def test_init_exists_resource(self):
-        engine = self._class('tests/testslide/index.rst')
-        assert engine.url == 'file://{}/{}'.format(test_dir, 'testslide/index.rst')
-        assert engine.save_dir == os.path.join(current_dir, '.deck2pdf')
-
     def test_init_web_resource(self):
-        engine = self._class('http://example.com/')
+        engine = self._class(http_web_resource)
         assert engine.url == 'http://example.com/'
         assert engine.save_dir == os.path.join(current_dir, '.deck2pdf')
 
     def test_start_for_save_dir(self):
-        engine = self._class('http://example.com/')
+        engine = self._class(http_web_resource)
         import shutil
         import glob
         shutil.rmtree(engine.save_dir, True)
@@ -37,11 +31,11 @@ class TestForCaptureEngine(object):
         assert len(files) == 0
 
     def test_capture_page_is_abstract(self):
-        engine = self._class('http://example.com/')
+        engine = self._class(http_web_resource)
         raises(NotImplementedError, engine.capture_page, ())
 
     def test_capture_all_is_abstract(self):
-        engine = self._class('http://example.com/')
+        engine = self._class(http_web_resource)
         raises(NotImplementedError, engine.capture_all)
 
 
@@ -53,7 +47,7 @@ class CommonTestForCaptureEngine(object):
 
     def test_init(self):
         # Same to TestForCaptureEngine.test_init_web_resource
-        engine = self._class('http://example.com/')
+        engine = self._class(http_web_resource)
         assert engine.url == 'http://example.com/'
         assert engine.save_dir == os.path.join(current_dir, '.deck2pdf')
 
