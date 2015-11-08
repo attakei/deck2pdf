@@ -21,16 +21,18 @@ Who am I ?
 Presentation file formats and hosting support
 ---------------------------------------------
 
-* Microsoft PowerPoint
-* Keynote
-* LibreOffice
-* PDF document
-* HTML Slide
+.. rst-class:: build
 
-  * impress.js
-  * reveal.js
-  * html5 slides
-  * etc
+   * Microsoft PowerPoint
+   * Keynote
+   * LibreOffice
+   * PDF document
+   * HTML Slide
+
+     * impress.js
+     * reveal.js
+     * html5 slides
+     * etc
 
 There are many types! but ...
 
