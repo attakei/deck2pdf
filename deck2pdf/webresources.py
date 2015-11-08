@@ -37,6 +37,7 @@ class WebResource(object):
         self.viewport_size = (800, 600)
         self.slide_size = (800, 600)
         self.sleep = 0
+        self.eval_back = ''
 
     @property
     def is_local(self):
@@ -54,17 +55,20 @@ class WebResource(object):
             self.viewport_size = Style[self.style].get('viewport', self.viewport_size)
             self.slide_size = Style[self.style].get('slide', self.slide_size)
             self.sleep = Style[self.style].get('sleep', self.sleep)
+            self.eval_back = Style[self.style].get('eval_back', self.eval_back)
 
 
 Style = {
     'html5slides': {
         'viewport': (1100, 750),
         'slide': (900, 700),
-        'sleep': 0,
+        'sleep': 1,
+        'eval_back': 'SlideDeck.prevSlide()',
     },
     'io2012': {
         'viewport': (1100, 700),
         'slide': (1100, 700),
         'sleep': 2,
+        'eval_back': 'slidedeck.prevSlide()',
     },
 }

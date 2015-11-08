@@ -34,13 +34,19 @@ class CaptureEngine(AbstractEngine):
         session.exit()
         return slides
 
-    def capture_page(self, slide_idx):
+    def capture_page(self, slide_idx, is_last=False):
         FILENAME = os.path.join(self.save_dir, "screen_{}.png".format(slide_idx))
-        url = '{}#{}'.format(self.url, slide_idx+1)
         session = self._ghost.start()
+        if is_last:
+            url = '{}#{}'.format(self.url, slide_idx)
+        else:
+            url = '{}#{}'.format(self.url, slide_idx+1)
+
         session.set_viewport_size(*self._web_resource.viewport_size)
         session.open(url)
-        session.sleep(self._web_resource.sleep)
+        if not is_last:
+            session.evaluate(self._web_resource.eval_back)
+        session.sleep(self._web_resource.sleep + 1)
         region = calc_center_region(session.main_frame.contentsSize(), self._web_resource.slide_size)
         session.capture_to(FILENAME, region=region)
         session.exit()
@@ -52,6 +58,6 @@ class CaptureEngine(AbstractEngine):
             slide_num = self._calc_slide_num()
         Logger.debug('{} slides'.format(slide_num))
 
-        for slide_idx in range(slide_num):
-            self.capture_page(slide_idx)
+        for slide_idx in range(1, slide_num+1):
+            self.capture_page(slide_idx, slide_num == slide_idx)
         self.end()
