@@ -22,14 +22,14 @@ class CaptureEngine(AbstractEngine):
         self._session.exit()
 
     def _calc_slide_num(self):
-        self._session.open(self._url)
+        self._session.open(self.url)
         return int(self._session.evaluate('slidedeck.slides.length')[0])
 
     def capture_page(self, slide_idx, is_last=False):
         FILENAME = os.path.join(self.save_dir, "screen_{}.png".format(slide_idx))
         curSlide = int(self._session.evaluate('slidedeck.curSlide_')[0])
         if is_last:
-            self._session.open('{}#{}'.format(self._url, slide_idx+1))
+            self._session.open('{}#{}'.format(self.url, slide_idx+1))
         else:
             while slide_idx >= curSlide:
                 self._session.evaluate('slidedeck.nextSlide();')

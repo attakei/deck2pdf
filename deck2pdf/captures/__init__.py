@@ -6,6 +6,7 @@ import logging
 import importlib
 import shutil
 from .. import errors
+from ..webresources import WebResource
 
 
 Logger = logging.getLogger('deck2pdf.captures')
@@ -21,27 +22,16 @@ def find_engine(name):
         return None
 
 
-def resolve_path(path):
-    if path.startswith('http://'):
-        return path
-    elif path.startswith('https://'):
-        return path
-    realpath = os.path.abspath(path)
-    if not os.path.exists(realpath):
-        raise errors.ResourceNotFound()
-    return 'file://{}'.format(realpath)
-
-
 class CaptureEngine(object):
     """Slide capturing engine (abstract)
     """
     def __init__(self, url):
-        self._url = resolve_path(url)
+        self._web_resource = WebResource(url)
         self._slide_captures = []
 
     @property
     def url(self):
-        return self._url
+        return self._web_resource.url
 
     @property
     def save_dir(self):

@@ -38,7 +38,7 @@ class CaptureEngine(AbstractEngine):
         self._driver.quit()
 
     def capture_page(self, slide_idx):
-        url_ = self._url + '#' + str(slide_idx)
+        url_ = self.url + '#' + str(slide_idx)
         FILENAME = os.path.join(self.save_dir, "screen_{}.png".format(slide_idx))
         Logger.debug(url_)
         Logger.debug(FILENAME)
@@ -53,7 +53,7 @@ class CaptureEngine(AbstractEngine):
 
     def capture_all(self):
         self.start()
-        resp_ = urlopen(self._url)
+        resp_ = urlopen(self.url)
         slides = count_slide_from_dom(resp_.read())
         Logger.debug('{} slides'.format(slides))
 
