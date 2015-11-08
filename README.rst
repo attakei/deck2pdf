@@ -16,7 +16,7 @@ Convert html5-slides into PDF slide
    :alt: CodeClimate GPA
 
 
-deck2pdf is batch application that will convert your `Google I/O 2012 slides <https://code.google.com/p/io-2012-slides/>`_ into PDF format keeping slide layout.
+deck2pdf is batch application that will convert your html slide into PDF format keeping slide layout.
 
 
 Install
@@ -37,24 +37,41 @@ Usage
 
 Simply usage::
 
-   $ deck2pdf <slide-url>
+   $ deck2pdf <slide-url> -n 10 -s html5slides
    $ ls
    slide.pdf
 
 Specify slide name::
 
-   $ deck2pdf -o myslide.pdf <slide-url>
+   $ deck2pdf -o myslide.pdf <slide-url> -n 10 -s html5slides
    $ ls
    myslide.pdf
 
+Arguments
+^^^^^^^^^
 
-Batch architecture
-------------------
+-n NUM, --num NUM
+  Num of slides (required)
 
-It is a simple.
+-s SLIDE, --slide SLIDE
+  Slide style (required)
 
-#. Capture slide screenshot.
-#. Merge slides and save pdf format.
+-c CAPTURE, --capture CAPTURE 
+  Slide capture engine name. default is ghostpy (recommend)
+
+-o OUTPUT, --output OUTPUT
+  Output slide file path
+
+Supported styles
+^^^^^^^^^^^^^^^^
+
+* html5slides
+
+  * `Google HTML5 slides <https://code.google.com/p/html5slides/>`_
+
+* io2012
+
+  * `Google I/O 2012 slides <https://code.google.com/p/io-2012-slides/>`_
 
 
 Future
