@@ -87,7 +87,7 @@ setup(
     cmdclass={'test': PyTest},
     entry_points={
         "console_scripts": [
-            "deck2pdf=deck2pdf:main",
+            "deck2pdf=deck2pdf.commands:main",
         ]
     }
 )
