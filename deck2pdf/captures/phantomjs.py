@@ -51,12 +51,13 @@ class CaptureEngine(AbstractEngine):
         self._driver.save_screenshot(FILENAME)
         self._slide_captures.append(FILENAME)
 
-    def capture_all(self):
+    def capture_all(self, slide_num=None):
         self.start()
-        resp_ = urlopen(self.url)
-        slides = count_slide_from_dom(resp_.read())
-        Logger.debug('{} slides'.format(slides))
+        if slide_num is None:
+            resp_ = urlopen(self.url)
+            slide_num = count_slide_from_dom(resp_.read())
+        Logger.debug('{} slides'.format(slide_num))
 
-        for slide_idx in range(1, slides):
+        for slide_idx in range(1, slide_num):
             self.capture_page(slide_idx)
         self.end()

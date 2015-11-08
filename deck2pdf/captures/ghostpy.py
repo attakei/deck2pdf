@@ -37,11 +37,12 @@ class CaptureEngine(AbstractEngine):
         session.exit()
         self._slide_captures.append(FILENAME)
 
-    def capture_all(self):
+    def capture_all(self, slide_num=None):
         self.start()
-        slides = self._calc_slide_num()
-        Logger.debug('{} slides'.format(slides))
+        if slide_num is None:
+            slide_num = self._calc_slide_num()
+        Logger.debug('{} slides'.format(slide_num))
 
-        for slide_idx in range(slides):
+        for slide_idx in range(slide_num):
             self.capture_page(slide_idx)
         self.end()

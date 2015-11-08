@@ -25,3 +25,12 @@ def test_output_file_by_name():
     deck2pdf.main([test_slide_path, '-c', 'stub', '-o', output_path])
     assert os.path.exists(os.path.join(current_dir, '.deck2pdf'))
     assert os.path.exists(output_path)
+
+
+def test_capture_files():
+    import glob
+    output_path = os.path.join(current_dir, '.deck2pdf', 'test.output')
+    deck2pdf.main([test_slide_path, '-c', 'stub', '-n', '4', '-o', output_path])
+    assert os.path.exists(os.path.join(current_dir, '.deck2pdf'))
+    assert os.path.exists(output_path)
+    assert len(glob.glob(current_dir + '/.deck2pdf/*png')) == 4

@@ -38,7 +38,7 @@ class CaptureEngine(object):
         current_dir = os.path.abspath(os.getcwd())
         return os.path.join(current_dir, TEMP_CAPTURE_DIR)
 
-    def capture_all(self):
+    def capture_all(self, slide_num=None):
         """Capture all pages of slide
         """
         raise NotImplementedError()

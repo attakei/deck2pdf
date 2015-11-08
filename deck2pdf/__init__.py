@@ -23,6 +23,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('path', help='Slide endpoint file path', type=str)
 parser.add_argument('-c', '--capture', help='Slide capture engine name', type=str, default='ghostpy')
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
+parser.add_argument('-n', '--num', help='Num of slides', type=int, default=None)
 
 
 def main(argv=None):
@@ -46,7 +47,7 @@ def main(argv=None):
     if CaptureEngine is None:
         raise Exception('Engine name "{}" is not found.'.format(args.capture))
     capture = CaptureEngine(args.path)
-    capture.capture_all()
+    capture.capture_all(args.num)
 
     # Merge
     pdf_path = os.path.abspath(args.output)

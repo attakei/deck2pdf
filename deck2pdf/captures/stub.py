@@ -21,9 +21,10 @@ class CaptureEngine(AbstractEngine):
             fp.write(a2b_base64(self.MINIMUM_PNG))
         self._slide_captures.append(FILENAME)
 
-    def capture_all(self):
+    def capture_all(self, slide_num=None):
         self.start()
-
-        for slide_idx in range(1, 3):
+        if slide_num is None:
+            slide_num = 2
+        for slide_idx in range(1, slide_num+1):
             self.capture_page(slide_idx)
         self.end()
