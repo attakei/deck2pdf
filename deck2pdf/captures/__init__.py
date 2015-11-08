@@ -5,8 +5,6 @@ import os
 import logging
 import importlib
 import shutil
-from .. import errors
-from ..webresources import WebResource
 
 
 Logger = logging.getLogger('deck2pdf.captures')

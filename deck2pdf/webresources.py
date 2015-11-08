@@ -48,7 +48,7 @@ class WebResource(object):
             header = resp.info()
             if header.getsubtype() != 'html':
                 raise errors.ResourceIsNotHtml()
-        except HTTPError as err:
+        except HTTPError:
             raise errors.ResourceNotFound()
         if self.style in Style:
             self.viewport_size = Style[self.style].get('viewport', self.viewport_size)
