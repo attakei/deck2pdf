@@ -5,7 +5,6 @@ import os
 import logging
 import importlib
 import shutil
-from .. import errors
 
 
 Logger = logging.getLogger('deck2pdf.captures')
@@ -21,34 +20,23 @@ def find_engine(name):
         return None
 
 
-def resolve_path(path):
-    if path.startswith('http://'):
-        return path
-    elif path.startswith('https://'):
-        return path
-    realpath = os.path.abspath(path)
-    if not os.path.exists(realpath):
-        raise errors.ResourceNotFound()
-    return 'file://{}'.format(realpath)
-
-
 class CaptureEngine(object):
     """Slide capturing engine (abstract)
     """
-    def __init__(self, url):
-        self._url = resolve_path(url)
+    def __init__(self, web_resource):
+        self._web_resource = web_resource
         self._slide_captures = []
 
     @property
     def url(self):
-        return self._url
+        return self._web_resource.url
 
     @property
     def save_dir(self):
         current_dir = os.path.abspath(os.getcwd())
         return os.path.join(current_dir, TEMP_CAPTURE_DIR)
 
-    def capture_all(self):
+    def capture_all(self, slide_num=None):
         """Capture all pages of slide
         """
         raise NotImplementedError()
@@ -61,6 +49,7 @@ class CaptureEngine(object):
     def start(self):
         shutil.rmtree(self.save_dir, True)
         os.makedirs(self.save_dir)
+        self._web_resource.init()
 
     def end(self):
         pass

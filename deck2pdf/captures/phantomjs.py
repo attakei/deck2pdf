@@ -38,7 +38,7 @@ class CaptureEngine(AbstractEngine):
         self._driver.quit()
 
     def capture_page(self, slide_idx):
-        url_ = self._url + '#' + str(slide_idx)
+        url_ = self.url + '#' + str(slide_idx)
         FILENAME = os.path.join(self.save_dir, "screen_{}.png".format(slide_idx))
         Logger.debug(url_)
         Logger.debug(FILENAME)
@@ -51,12 +51,13 @@ class CaptureEngine(AbstractEngine):
         self._driver.save_screenshot(FILENAME)
         self._slide_captures.append(FILENAME)
 
-    def capture_all(self):
+    def capture_all(self, slide_num=None):
         self.start()
-        resp_ = urlopen(self._url)
-        slides = count_slide_from_dom(resp_.read())
-        Logger.debug('{} slides'.format(slides))
+        if slide_num is None:
+            resp_ = urlopen(self.url)
+            slide_num = count_slide_from_dom(resp_.read())
+        Logger.debug('{} slides'.format(slide_num))
 
-        for slide_idx in range(1, slides):
+        for slide_idx in range(1, slide_num):
             self.capture_page(slide_idx)
         self.end()
