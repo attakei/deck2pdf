@@ -7,6 +7,7 @@ import os
 import argparse
 from . import TEMP_CAPTURE_DIR
 from .webresources import WebResource
+from .printers import calc_filled_pagesize
 
 
 __author__ = 'attakei'
@@ -51,11 +52,11 @@ def main(argv=None):
     from reportlab.lib.pagesizes import A4, landscape
     from reportlab.pdfgen import canvas
 
-    slide_size = landscape(A4)
-    pdf = canvas.Canvas(pdf_path, pagesize=slide_size)
+    slide_size = calc_filled_pagesize(landscape(A4), web_resource.slide_size)
+    pdf = canvas.Canvas(pdf_path, pagesize=slide_size, invariant=1)
     idx = 0
     for slide in capture._slide_captures:
-        pdf.drawImage(slide, 0, 0, slide_size[0], slide_size[1])
+        pdf.drawImage(slide, 0, 0, slide_size[0], slide_size[1], preserveAspectRatio=True)
         pdf.showPage()
         idx += 1
     pdf.save()
