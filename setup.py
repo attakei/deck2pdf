@@ -29,7 +29,6 @@ if os.path.exists(readme_path):
         long_description = fp.read()
 
 
-# Origin URL: http://tell-k.github.io/pyconjp2015/#28
 def find_version(*file_paths):
     version_file_path = os.path.join(*file_paths)
     try:
