@@ -74,7 +74,7 @@ setup(
     author_email='attakei@gmail.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta'
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Environment :: X11 Applications :: Qt',
         'License :: OSI Approved :: MIT License',
