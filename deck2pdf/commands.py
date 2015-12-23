@@ -44,7 +44,7 @@ def main(argv=None):
     CaptureEngine = find_engine(args.capture)
     if CaptureEngine is None:
         raise Exception('Engine name "{}" is not found.'.format(args.capture))
-    capture = CaptureEngine(web_resource)
+    capture = CaptureEngine(web_resource, cache_dir)
     capture.capture_all(args.num)
 
     # Merge
