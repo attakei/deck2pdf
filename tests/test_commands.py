@@ -26,6 +26,15 @@ def test_output_for_tempdir():
     assert os.path.exists(os.path.join(current_dir, 'slide.pdf'))
 
 
+def test_output_for_tempdir_2():
+    import shutil
+    temp_dir = os.path.join(current_dir, '..deck2pdf')
+    shutil.rmtree(temp_dir, ignore_errors=True)
+    main([test_slide_path, '-c', 'stub', '-s', 'html5slides', '-n', '1', '--tempdir', './..deck2pdf'])
+    assert os.path.exists(temp_dir)
+    assert os.path.exists(os.path.join(current_dir, 'slide.pdf'))
+
+
 def test_output_file_by_name():
     output_path = os.path.join(current_dir, '.deck2pdf', 'test.output')
     main([test_slide_path, '-c', 'stub', '-s', 'html5slides', '-n', '1', '-o', output_path])

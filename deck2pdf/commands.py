@@ -30,7 +30,7 @@ def main(argv=None):
     args.path = os.path.abspath(args.path)
 
     root_dir = os.getcwd()
-    cache_dir = os.path.join(root_dir, TEMP_CAPTURE_DIR)
+    cache_dir = os.path.join(root_dir, args.tempdir or TEMP_CAPTURE_DIR)
     if not os.path.exists(cache_dir):
         os.makedirs(cache_dir)
     elif not os.path.isdir(cache_dir):
