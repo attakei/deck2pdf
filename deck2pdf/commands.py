@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import sys
 import os
 import argparse
-from . import TEMP_CAPTURE_DIR
+import tempfile
 from .webresources import WebResource
 from .printers import calc_filled_pagesize
 
@@ -30,7 +30,7 @@ def main(argv=None):
     args.path = os.path.abspath(args.path)
 
     root_dir = os.getcwd()
-    cache_dir = os.path.join(root_dir, args.tempdir or TEMP_CAPTURE_DIR)
+    cache_dir = os.path.join(root_dir, args.tempdir or tempfile.mkdtemp())
     if not os.path.exists(cache_dir):
         os.makedirs(cache_dir)
     elif not os.path.isdir(cache_dir):
