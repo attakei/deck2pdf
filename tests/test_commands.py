@@ -20,6 +20,12 @@ def test_output_default():
     assert os.path.exists(os.path.join(current_dir, 'slide.pdf'))
 
 
+def test_output_for_tempdir():
+    main([test_slide_path, '-c', 'stub', '-s', 'html5slides', '-n', '1', '--tempdir', './.deck2pdf'])
+    assert os.path.exists(os.path.join(current_dir, '.deck2pdf'))
+    assert os.path.exists(os.path.join(current_dir, 'slide.pdf'))
+
+
 def test_output_file_by_name():
     output_path = os.path.join(current_dir, '.deck2pdf', 'test.output')
     main([test_slide_path, '-c', 'stub', '-s', 'html5slides', '-n', '1', '-o', output_path])

@@ -19,6 +19,7 @@ parser.add_argument('-c', '--capture', help='Slide capture engine name', type=st
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 parser.add_argument('-n', '--num', help='Num of slides', type=int, required=True)
 parser.add_argument('-s', '--slide', help='Slide style', type=str, required=True)
+parser.add_argument('--tempdir', help='Temporary directory', type=str, default=None)
 
 
 def main(argv=None):
