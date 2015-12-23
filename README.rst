@@ -7,12 +7,12 @@ Convert html5-slides into PDF slide
    :target: https://pypi.python.org/pypi/deck2pdf
    :alt: PyPI latest
 
-.. image:: https://img.shields.io/circleci/project/attakei/deck2pdf.svg
-   :target: https://circleci.com/gh/attakei/deck2pdf
+.. image:: https://img.shields.io/circleci/project/attakei/deck2pdf-python.svg
+   :target: https://circleci.com/gh/attakei/deck2pdf-python
    :alt: CircleCI Status (not all tests)
 
-.. image:: https://img.shields.io/codeclimate/github/attakei/deck2pdf.svg
-   :target: https://codeclimate.com/github/attakei/deck2pdf
+.. image:: https://img.shields.io/codeclimate/github/attakei/deck2pdf-python.svg
+   :target: https://codeclimate.com/github/attakei/deck2pdf-python
    :alt: CodeClimate GPA
 
 

@@ -72,7 +72,7 @@ class PyTest(TestCommand):
 setup(
     name='deck2pdf',
     version=find_version('deck2pdf/__init__.py'),
-    url='https://github.com/attakei/deck2pdf',
+    url='https://github.com/attakei/deck2pdf-python',
     description='Convert html5-slide into pdf',
     long_description=long_description,
     author='attakei',
