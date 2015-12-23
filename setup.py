@@ -32,7 +32,7 @@ if os.path.exists(readme_path):
 def find_version(*file_paths):
     if 'RELEASE' not in os.environ:
         import datetime
-        version_suffix = '.dev' + datetime.datetime.now().strftime('%Y%m%d.%H%M%S')
+        version_suffix = '.dev' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     else:
         version_suffix = ''
     version_file_path = os.path.join(*file_paths)
