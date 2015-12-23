@@ -27,9 +27,9 @@ def test_output_for_tempdir():
 
 def test_output_for_tempdir_2():
     import shutil
-    temp_dir = os.path.join(current_dir, '..deck2pdf')
+    temp_dir = os.path.join(current_dir, '__deck2pdf')
     shutil.rmtree(temp_dir, ignore_errors=True)
-    main([test_slide_path, '-c', 'stub', '-s', 'html5slides', '-n', '1', '--tempdir', './..deck2pdf'])
+    main([test_slide_path, '-c', 'stub', '-s', 'html5slides', '-n', '1', '--tempdir', './__deck2pdf'])
     assert os.path.exists(temp_dir)
     assert os.path.exists(os.path.join(current_dir, 'slide.pdf'))
 
