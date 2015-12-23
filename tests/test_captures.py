@@ -1,9 +1,6 @@
 import os
 from pytest import raises
 from deck2pdf.webresources import WebResource
-from . import (
-    current_dir,
-)
 
 
 http_web_resource = WebResource('http://example.com/')
@@ -18,7 +15,6 @@ class TestForCaptureEngine(object):
     def test_init_web_resource(self):
         engine = self._class(http_web_resource)
         assert engine.url == 'http://example.com/'
-        assert engine.save_dir == os.path.join(current_dir, '.deck2pdf')
 
     def test_start_for_save_dir(self):
         engine = self._class(http_web_resource)
@@ -49,7 +45,6 @@ class CommonTestForCaptureEngine(object):
         # Same to TestForCaptureEngine.test_init_web_resource
         engine = self._class(http_web_resource)
         assert engine.url == 'http://example.com/'
-        assert engine.save_dir == os.path.join(current_dir, '.deck2pdf')
 
 
 class TestForPhantomJsCaptureEngine(CommonTestForCaptureEngine):

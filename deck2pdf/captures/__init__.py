@@ -23,8 +23,9 @@ def find_engine(name):
 class CaptureEngine(object):
     """Slide capturing engine (abstract)
     """
-    def __init__(self, web_resource):
+    def __init__(self, web_resource, cache_dir=None):
         self._web_resource = web_resource
+        self._cache_dir = cache_dir or TEMP_CAPTURE_DIR
         self._slide_captures = []
 
     @property
@@ -34,7 +35,7 @@ class CaptureEngine(object):
     @property
     def save_dir(self):
         current_dir = os.path.abspath(os.getcwd())
-        return os.path.join(current_dir, TEMP_CAPTURE_DIR)
+        return os.path.join(current_dir, self._cache_dir)
 
     def capture_all(self, slide_num=None):
         """Capture all pages of slide
