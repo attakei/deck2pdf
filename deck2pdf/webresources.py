@@ -63,7 +63,7 @@ Style = {
         'viewport': (1100, 750),
         'slide': (900, 700),
         'sleep': 1,
-        'eval_back': 'SlideDeck.prevSlide()',
+        'eval_back': 'if ( typeof prevSlide != "undefined") {prevSlide();} else {SlideDeck.prevSlide();}',
     },
     'io2012': {
         'viewport': (1100, 700),
