@@ -23,6 +23,7 @@ class CaptureEngine(AbstractEngine):
     def start(self):
         super(CaptureEngine, self).start()
         self._ghost = Ghost()
+        self._session = self._ghost.start()
 
     def end(self):
         self._ghost.exit()
@@ -34,30 +35,23 @@ class CaptureEngine(AbstractEngine):
         session.exit()
         return slides
 
-    def capture_page(self, slide_idx, is_last=False):
+    def capture_page(self, session, slide_idx, is_last=False):
         FILENAME = os.path.join(self.save_dir, "screen_{}.png".format(slide_idx))
-        session = self._ghost.start()
-        if is_last:
-            url = '{}#{}'.format(self.url, slide_idx)
-        else:
-            url = '{}#{}'.format(self.url, slide_idx+1)
 
-        session.set_viewport_size(*self._web_resource.viewport_size)
-        session.open(url)
-        if not is_last:
-            session.evaluate(self._web_resource.eval_back)
-        session.sleep(self._web_resource.sleep + 1)
         region = calc_center_region(session.main_frame.contentsSize(), self._web_resource.slide_size)
+        session.sleep(self._web_resource.sleep + 1)
         session.capture_to(FILENAME, region=region)
-        session.exit()
         self._slide_captures.append(FILENAME)
 
     def capture_all(self, slide_num=None):
         self.start()
         if slide_num is None:
-            slide_num = self._calc_slide_num()
+            raise Error('slide_num')
         Logger.debug('{} slides'.format(slide_num))
 
+        self._session.set_viewport_size(*self._web_resource.viewport_size)
+        self._session.open(self.url)
         for slide_idx in range(1, slide_num+1):
-            self.capture_page(slide_idx, slide_num == slide_idx)
+            self.capture_page(self._session, slide_idx)
+            self._session.evaluate(self._web_resource.eval_next)
         self.end()

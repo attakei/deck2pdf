@@ -37,6 +37,7 @@ class WebResource(object):
         self.viewport_size = (800, 600)
         self.slide_size = (800, 600)
         self.sleep = 0
+        self.eval_next = ''
         self.eval_back = ''
 
     @property
@@ -55,6 +56,7 @@ class WebResource(object):
             self.viewport_size = Style[self.style].get('viewport', self.viewport_size)
             self.slide_size = Style[self.style].get('slide', self.slide_size)
             self.sleep = Style[self.style].get('sleep', self.sleep)
+            self.eval_next = Style[self.style].get('eval_next', self.eval_next)
             self.eval_back = Style[self.style].get('eval_back', self.eval_back)
 
 
@@ -63,6 +65,7 @@ Style = {
         'viewport': (1100, 750),
         'slide': (900, 700),
         'sleep': 1,
+        'eval_next': 'if ( typeof nextSlide != "undefined") {nextSlide();} else {SlideDeck.nextSlide();}',
         'eval_back': 'if ( typeof prevSlide != "undefined") {prevSlide();} else {SlideDeck.prevSlide();}',
     },
     'io2012': {
