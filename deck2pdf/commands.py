@@ -15,7 +15,7 @@ __author__ = 'attakei'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('path', help='Slide endpoint file path', type=str)
-# parser.add_argument('-c', '--capture', help='Slide capture engine name', type=str, default='ghostpy')
+parser.add_argument('-c', '--capture', help='Slide capture engine name', type=str, default='ghostpy')
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 parser.add_argument('-n', '--num', help='Num of slides', type=int, required=True)
 parser.add_argument('-s', '--slide', help='Slide style', type=str, required=True)
@@ -28,8 +28,7 @@ def main(argv=None):
         argv = sys.argv[1:]
 
     args = parser.parse_args(argv)
-    print(args)
-    args.path = os.path.abspath(args.path)
+    # args.path = os.path.abspath(args.path)
 
     root_dir = os.getcwd()
     cache_dir = os.path.join(root_dir, args.tempdir or tempfile.mkdtemp())
@@ -44,9 +43,7 @@ def main(argv=None):
     # Capture
     from deck2pdf.captures import find_engine
     if args.short:
-        args.capture = 'ghostpy'
-    else:
-        args.capture = 'ghostpy2'
+        args.capture += '_short'
     CaptureEngine = find_engine(args.capture)
     if CaptureEngine is None:
         raise Exception('Engine name "{}" is not found.'.format(args.capture))
