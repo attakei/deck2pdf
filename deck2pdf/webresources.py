@@ -72,6 +72,7 @@ Style = {
         'viewport': (1100, 700),
         'slide': (1100, 700),
         'sleep': 2,
+        'eval_next': 'slidedeck.nextSlide()',
         'eval_back': 'slidedeck.prevSlide()',
     },
 }
