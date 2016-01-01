@@ -29,7 +29,7 @@ deck2pdf is required `PySide <http://pyside.github.io/docs/pyside/index.html>`_ 
 
    $ pip install pyside
    $ pyside_postinstall.py -install
-   $ pip install https://github.com/attakei/deck2pdf-python
+   $ pip install deck2pdf
 
 
 Usage
@@ -55,9 +55,6 @@ Arguments
 
 -s SLIDE, --slide SLIDE
   Slide style (required)
-
--c CAPTURE, --capture CAPTURE 
-  Slide capture engine name. default is ghostpy (recommend)
 
 -o OUTPUT, --output OUTPUT
   Output slide file path

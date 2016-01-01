@@ -3,6 +3,21 @@ Package changes history
 =======================
 
 
+0.4.x
+=====
+
+0.4.0
+-----
+
+* Fixes
+
+  * If argument source path was remote(http, https), failed to resolve path.
+  * Use ghost.py only as capture engine
+
+* Features
+
+  * In default, engine capture screen per animation (In old version, capture per slide page)
+
 0.3.x
 =====
 
