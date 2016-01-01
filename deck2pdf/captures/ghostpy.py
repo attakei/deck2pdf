@@ -46,7 +46,7 @@ class CaptureEngine(AbstractEngine):
     def capture_all(self, slide_num=None):
         self.start()
         if slide_num is None:
-            raise Error('slide_num')
+            raise AttributeError('This engin is required "slide_num"')
         Logger.debug('{} slides'.format(slide_num))
 
         self._session.set_viewport_size(*self._web_resource.viewport_size)
