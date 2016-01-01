@@ -19,6 +19,7 @@ parser.add_argument('-c', '--capture', help='Slide capture engine name', type=st
 parser.add_argument('-o', '--output', help='Output slide file path', type=str, default='./slide.pdf')
 parser.add_argument('-n', '--num', help='Num of slides', type=int, required=True)
 parser.add_argument('-s', '--slide', help='Slide style', type=str, required=True)
+parser.add_argument('-S', '--short', help='Short slide', action='store_true')
 parser.add_argument('--tempdir', help='Temporary directory', type=str, default=None)
 
 
@@ -27,7 +28,7 @@ def main(argv=None):
         argv = sys.argv[1:]
 
     args = parser.parse_args(argv)
-    args.path = os.path.abspath(args.path)
+    # args.path = os.path.abspath(args.path)
 
     root_dir = os.getcwd()
     cache_dir = os.path.join(root_dir, args.tempdir or tempfile.mkdtemp())
@@ -41,6 +42,8 @@ def main(argv=None):
 
     # Capture
     from deck2pdf.captures import find_engine
+    if args.short:
+        args.capture += '_short'
     CaptureEngine = find_engine(args.capture)
     if CaptureEngine is None:
         raise Exception('Engine name "{}" is not found.'.format(args.capture))
