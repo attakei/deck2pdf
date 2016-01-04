@@ -60,6 +60,6 @@ class CaptureEngine(AbstractEngine):
             if current_digest == last_digest:
                 self._slide_captures.pop()
                 break
-            last_digest = current_digest 
+            last_digest = current_digest
             self._session.evaluate(self._web_resource.eval_next)
         self.end()
