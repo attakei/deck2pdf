@@ -50,14 +50,14 @@ Specify slide name::
 Arguments
 ^^^^^^^^^
 
--n NUM, --num NUM
-  Num of slides (required)
-
 -s SLIDE, --slide SLIDE
   Slide style (required)
 
 -o OUTPUT, --output OUTPUT
   Output slide file path
+
+-n NUM, --num NUM
+  Num of slides (optional)
 
 Supported styles
 ^^^^^^^^^^^^^^^^
