@@ -47,8 +47,8 @@ class CaptureEngine(AbstractEngine):
     def capture_all(self, slide_num=None):
         self.start()
         if slide_num is None:
+            # TODO: Default slide num must be defined as module value
             slide_num = 100
-            # raise AttributeError('This engin is required "slide_num"')
         Logger.debug('{} slides'.format(slide_num))
 
         self._session.set_viewport_size(*self._web_resource.viewport_size)
@@ -57,6 +57,7 @@ class CaptureEngine(AbstractEngine):
         for slide_idx in range(1, slide_num+1):
             self.capture_page(self._session, slide_idx)
             current_digest = gen_md5(self._slide_captures[-1])
+            # If there are same captures, it is a last slide.
             if current_digest == last_digest:
                 self._slide_captures.pop()
                 break
