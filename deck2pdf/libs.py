@@ -7,7 +7,7 @@ import hashlib
 
 def gen_md5(filepath):
     """Return MD5 hex digest from file
-    
+
     :param filepath: target file path
     :type filepath: str
     :return: md5 digest (hex)
