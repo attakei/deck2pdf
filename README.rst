@@ -54,7 +54,7 @@ Arguments
   Slide style (required)
 
 -o OUTPUT, --output OUTPUT
-  Output slide file path
+  Output slide file path (optional)
 
 -n NUM, --num NUM
   Num of slides (optional)

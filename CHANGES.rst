@@ -2,6 +2,15 @@
 Package changes history
 =======================
 
+0.5.x
+=====
+
+0.5.0
+-----
+
+* Features
+
+  * Change argument -n/--name to optional from require
 
 0.4.x
 =====
