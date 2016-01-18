@@ -52,7 +52,12 @@ class CaptureEngine(AbstractEngine):
         Logger.debug('{} slides'.format(slide_num))
 
         self._session.set_viewport_size(*self._web_resource.viewport_size)
-        self._session.open(self.url + '#1')
+
+        url_ = self.url
+        if self._web_resource.name_to_control:
+            url_ = url_ + '#1'
+        self._session.open(url_)
+
         last_digest = ''
         for slide_idx in range(1, slide_num+1):
             self.capture_page(self._session, slide_idx)

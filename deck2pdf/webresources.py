@@ -39,6 +39,7 @@ class WebResource(object):
         self.sleep = 0
         self.eval_next = ''
         self.eval_back = ''
+        self.name_to_control = False
 
     @property
     def is_local(self):
@@ -58,6 +59,7 @@ class WebResource(object):
             self.sleep = Style[self.style].get('sleep', self.sleep)
             self.eval_next = Style[self.style].get('eval_next', self.eval_next)
             self.eval_back = Style[self.style].get('eval_back', self.eval_back)
+            self.name_to_control = Style[self.style].get('name_to_control', self.name_to_control)
 
 
 Style = {
@@ -67,6 +69,7 @@ Style = {
         'sleep': 1,
         'eval_next': 'if ( typeof nextSlide != "undefined") {nextSlide();} else {SlideDeck.nextSlide();}',
         'eval_back': 'if ( typeof prevSlide != "undefined") {prevSlide();} else {SlideDeck.prevSlide();}',
+        'name_to_control': True,
     },
     'io2012': {
         'viewport': (1100, 700),
@@ -74,5 +77,15 @@ Style = {
         'sleep': 2,
         'eval_next': 'slidedeck.nextSlide()',
         'eval_back': 'slidedeck.prevSlide()',
+        'name_to_control': True,
+    },
+    'revealjs': {
+        'name': 'revealjs',
+        'viewport': (960, 700),
+        'slide': (960, 700),
+        'sleep': 1,
+        'eval_next': 'Reveal.next()',
+        'eval_back': 'slidedeck.prevSlide()',
+        'name_to_control': False,
     },
 }
