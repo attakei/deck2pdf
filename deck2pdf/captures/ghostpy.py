@@ -24,7 +24,8 @@ class CaptureEngine(AbstractEngine):
     def start(self):
         super(CaptureEngine, self).start()
         self._ghost = Ghost()
-        self._session = self._ghost.start()
+        # TODO: Define outside
+        self._session = self._ghost.start(wait_timeout=10)
 
     def end(self):
         self._ghost.exit()
