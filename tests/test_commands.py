@@ -46,3 +46,13 @@ def test_capture_files():
     main([test_slide_path, '-c', 'stub', '-s', 'html5slides', '-n', '4', '-o', output_path])
     assert os.path.exists(output_path)
     # assert len(glob.glob(current_dir + '/.deck2pdf/*png')) == 4
+
+
+def test_loglevel():
+    import logging
+    from deck2pdf.commands import parser
+    logger = logging.getLogger()
+    assert logger.getEffectiveLevel() == logging.WARNING
+    parser.parse_args([test_slide_path, '-s', 'html5slides', '-l', 'DEBUG'])
+    logger = logging.getLogger()
+    assert logger.getEffectiveLevel() == logging.DEBUG
